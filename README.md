@@ -1,14 +1,4 @@
-# via-rail-notif
-
-## Running the FastAPI Application
-
-To run the FastAPI application, execute the following command:
-
-```bash
-uvicorn main:app --reload
-```
-
-This will start the server and you can access the "Hello World" message at `http://127.0.0.1:8000/`.
+# Via Rail Notif 🚆
 
 ## Running the FastAPI Application with Poetry
 
@@ -25,7 +15,7 @@ This will start the server and you can access the "Hello World" message at `http
 To install the necessary dependencies using Poetry, execute the following commands:
 
 ```bash
-poetry add fastapi uvicorn requests
+make install
 ```
 
 ## Linting the Code

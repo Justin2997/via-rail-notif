@@ -2,7 +2,8 @@
 name = "via-rail-notif"
 version = "0.1.0"
 description = "A FastAPI application that says Hello World"
-authors = ["Your Name <you@example.com>"]
+authors = ["Justin Brulotte", "David Pare"]
+packages = [{include = "via_rail_notif", from="src"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
