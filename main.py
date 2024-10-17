@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException
 import requests
 
+
 app = FastAPI()
 
-  
+
 @app.get("/data/station")
 def fetch_data():
     url = "https://tsimobile.viarail.ca/data/allData.json"
@@ -18,3 +19,4 @@ def fetch_data():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+

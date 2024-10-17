@@ -25,7 +25,7 @@ This will start the server and you can access the "Hello World" message at `http
 To install the necessary dependencies using Poetry, execute the following commands:
 
 ```bash
-poetry add fastapi uvicorn
+poetry add fastapi uvicorn requests
 ```
 
 ## Linting the Code

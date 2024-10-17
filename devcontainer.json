@@ -7,7 +7,8 @@
         "python.linting.pylintEnabled": true,
         "python.formatting.autopep8Path": "/usr/local/bin/autopep8",
         "python.formatting.blackPath": "/usr/local/bin/black",
-        "python.formatting.yapfPath": "/usr/local/bin/yapf"
+        "python.formatting.yapfPath": "/usr/local/bin/yapf",
+        "python.linting.flake8Enabled": true
     },
     "extensions": [
         "ms-python.python",
