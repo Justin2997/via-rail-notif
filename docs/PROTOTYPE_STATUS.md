@@ -1,6 +1,6 @@
 # État du prototype — 23 septembre 2026
 
-L’app est autonome : aucun backend propre au projet, aucun serveur local et aucune clé API. Les fichiers Python, Poetry et Docker ont été retirés. Le plan et les recherches existants sont conservés comme historique. Aucun commit, push, publication App Store ou résultat CI distant.
+L’app est autonome : aucun backend propre au projet, aucun serveur local et aucune clé API. Les fichiers Python, Poetry et Docker ont été retirés. Le plan et les recherches existants sont conservés comme historique. Le remplacement est dans la [PR #5](https://github.com/Justin2997/via-rail-notif/pull/5); la CI distante n’a pas encore été exécutée.
 
 ## Incrément 0.3.2 — dashboard sans onglets
 
@@ -10,7 +10,7 @@ L’app est autonome : aucun backend propre au projet, aucun serveur local et au
 - Compilations simulateur et appareil réussies. Version 0.3.2 (5) signée, installée et lancée sur iPhone 16 Pro; processus principal présent après lancement.
 - Parcours sur simulateur avec le vrai train 41 : ouverture, sélection, activation, retour automatique au dashboard, gestion, arrêt puis retour à l’état vide. Alarme d’essai arrêtée.
 
-[Configuration](evidence/alarm-editor-0.3.2.png) · [Dashboard actif](evidence/dashboard-0.3.2-active.png) · [Après arrêt](evidence/dashboard-0.3.2-stopped.png) · [Déploiement](evidence/deployment-0.3.2.json)
+[Manifest de déploiement](evidence/deployment-0.3.2.json)
 
 ## Incrément 0.3.1 — uniquement les trains avec réveil
 
@@ -20,7 +20,7 @@ L’app est autonome : aucun backend propre au projet, aucun serveur local et au
 - Le détail met en avant l’arrivée à la gare cible du réveil et conserve cette gare lors de l’ouverture de sa configuration.
 - Compilation simulateur et appareil réussie; 0.3.1 (4) signée, installée et lancée sur iPhone. Validation visuelle du parcours activation → suivi → arrêt dans le simulateur; preuves ci-dessous.
 
-[Sans réveil](evidence/dashboard-0.3.1-empty.png) · [Train suivi](evidence/dashboard-0.3.1-active.png) · [Après arrêt](evidence/dashboard-0.3.1-stopped.png)
+Les captures de cet incrément ont été examinées pendant la validation; les PNG ne sont pas inclus dans cette PR.
 
 ## Incrément 0.3 — dashboard et réveil séparés
 
@@ -39,7 +39,7 @@ L’app est autonome : aucun backend propre au projet, aucun serveur local et au
 | Parcours visuel | Navigation dashboard → détail, onglet réveil → choix d’un vrai train; clair/sombre et Dynamic Type accessibility-medium inspectés. Aucune alarme activée pour ces captures. |
 | Accessibilité | Contrastes personnalisés calculés et grands caractères contrôlés; VoiceOver et toutes les tailles/appareils non audités. |
 
-Preuves : [manifest de déploiement](evidence/deployment-0.3.json), [dashboard](evidence/dashboard-0.3.png), [réveil](evidence/alarm-0.3.png). La barre de statut du simulateur affiche une heure forcée; elle ne date pas les observations.
+Preuve : [manifest de déploiement](evidence/deployment-0.3.json). Les captures du dashboard et du réveil ont été examinées pendant la validation; les PNG ne sont pas inclus dans cette PR. La barre de statut du simulateur affichait une heure forcée, sans lien avec les observations.
 
 ## Historique 0.2 — suivi local et identité
 
@@ -61,12 +61,12 @@ Preuves : [manifest de déploiement](evidence/deployment-0.3.json), [dashboard](
 | Compilation simulateur iOS 26.1 | Réussie sans erreur ni avertissement rapporté par le build. |
 | Installation et lancement simulateur | Version 0.2 compilée et lancée; examen visuel de la nouvelle Activité en direct non confirmé : le simulateur dédié est resté bloqué au démarrage du système, puis le disque du Mac a été saturé. Le simulateur de test et les caches de compilation propres à cet incrément ont été nettoyés. Le chargement VIA direct avait été observé dans la version autonome précédente. |
 | Installation iPhone 16 Pro | Version 0.2.0 (2) compilée pour arm64, signée et vérifiée avec codesign, puis installée. Le premier lancement a été refusé car l’iPhone était verrouillé; validation du lancement en attente. |
-| Icône sur iPhone | Icône réellement installée récupérée depuis l’appareil, sans image de remplacement; voir `evidence/iphone-installed-icon.png`. |
+| Icône de l’app | Asset d’icône iOS conservé dans `ios/App/Assets.xcassets/AppIcon.appiconset`; aucune capture d’écran n’est incluse dans cette PR. |
 | Configuration réseau | Aucune adresse de serveur configurable, permission réseau local ou exception ATS dans le build. Aucun processus en écoute sur le port 8000 lors de la vérification. |
 | AlarmKit | Moteur local conservé; 13 tests sur l’état des alarmes et la politique de suivi passent. Lors de l’incrément précédent, programmation, déplacements dans les deux sens et annulation ont été relus dans le simulateur. Aucune sonnerie sur iPhone physique démontrée. |
 | GitHub Actions | Workflow désormais limité aux tests Swift et à la compilation iOS; non exécuté à distance. |
 
-[Capture du chargement autonome dans le simulateur](evidence/autonomous-simulator.png). L’heure affichée dans la barre de statut du simulateur est forcée et ne sert pas de preuve temporelle.
+Le chargement autonome a été examiné dans le simulateur. Sa capture PNG n’est pas incluse dans cette PR; l’heure forcée de la barre de statut ne constituait pas une preuve temporelle.
 
 ## Périmètre livré
 

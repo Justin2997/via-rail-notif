@@ -28,18 +28,7 @@ Le logo existant, les calculs d’alarme et les identités des trains ne sont pa
 
 ## Captures inspectées
 
-| État | Preuve |
-| --- | --- |
-| Dashboard clair | [Capture](evidence/dashboard-0.3.png) |
-| Détail réel du train 41 | [Capture](evidence/train-detail-0.3.png) |
-| Réveil sans sélection | [Capture](evidence/alarm-0.3-empty.png) |
-| Choix d’un train réel | [Capture](evidence/train-picker-0.3.png) |
-| Réveil configuré, non activé | [Capture](evidence/alarm-0.3.png) |
-| Réveil sombre | [Capture](evidence/alarm-0.3-dark.png) |
-| Réveil avec grands caractères | [Capture après défilement](evidence/alarm-0.3-large-text.png) |
-| Dashboard avec grands caractères | [Capture](evidence/dashboard-0.3-large-text.png) |
-
-L’heure 02:30 de la barre système du simulateur est forcée et ne représente pas l’heure des données. Les réglages de taille et d’apparence du simulateur ont été restaurés à leur état initial après vérification.
+Les captures du simulateur ont été examinées pendant la revue, mais les images PNG ne sont pas incluses dans cette PR. La grille et les résultats détaillés restent dans [le rapport JSON](evidence/designly-review-0.3.json). L’heure 02:30 de la barre système du simulateur était forcée et ne représentait pas l’heure des données; les réglages de taille et d’apparence ont été restaurés après vérification.
 
 ## Limites de la revue
 
