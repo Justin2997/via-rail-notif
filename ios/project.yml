@@ -1,0 +1,61 @@
+name: ReveilVIA
+options:
+  bundleIdPrefix: ca.codingpanda
+  deploymentTarget:
+    iOS: '26.0'
+packages:
+  RailCore:
+    path: .
+settings:
+  base:
+    SWIFT_VERSION: '6.0'
+    TARGETED_DEVICE_FAMILY: '1'
+    MARKETING_VERSION: '0.3.2'
+    CURRENT_PROJECT_VERSION: '5'
+targets:
+  ReveilVIA:
+    type: application
+    platform: iOS
+    sources: [App, Shared]
+    dependencies:
+      - package: RailCore
+      - target: ReveilVIALiveActivity
+        embed: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ca.codingpanda.reveilvia.prototype
+        TARGETED_DEVICE_FAMILY: '1'
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Réveil VIA
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_NSAlarmKitUsageDescription: Réveil VIA programme une alarme avant l’arrivée du train à la gare choisie.
+    info:
+      path: App/Info.plist
+      properties:
+        NSAlarmKitUsageDescription: Réveil VIA programme une alarme avant l’arrivée du train à la gare choisie.
+        NSSupportsLiveActivities: true
+        UIBackgroundModes: [fetch]
+        BGTaskSchedulerPermittedIdentifiers: [ca.codingpanda.reveilvia.prototype.refresh]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+  ReveilVIALiveActivity:
+    type: app-extension
+    platform: iOS
+    sources: [LiveActivity, Shared]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ca.codingpanda.reveilvia.prototype.activity
+        GENERATE_INFOPLIST_FILE: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+        SKIP_INSTALL: YES
+    info:
+      path: LiveActivity/Info.plist
+      properties:
+        CFBundleDisplayName: Réveil VIA
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+schemes:
+  ReveilVIA:
+    build:
+      targets:
+        ReveilVIA: all

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "build": "2",
+  "updatedAt": "2026-09-23T01:55:50.408857+00:00",
+  "device": "iPhone 16 Pro",
+  "bundleId": "ca.codingpanda.reveilvia.prototype",
+  "deviceBuild": "succeeded",
+  "signatureVerification": "codesign --verify --deep --strict passed",
+  "installation": "succeeded",
+  "iconFromDevice": "iphone-installed-icon.png",
+  "launch": "blocked: device locked",
+  "unitTests": "28 passed offline; 1 network test skipped",
+  "liveActivityVisualValidation": "not confirmed: dedicated simulator startup stalled and disk filled",
+  "backgroundDeliveryCadence": "unverified, iOS opportunistic"
+}

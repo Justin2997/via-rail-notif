@@ -1,0 +1,527 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0317CFEA36BA625F9D1A8E78 /* JourneyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E849A22F831E1AA845A39 /* JourneyModel.swift */; };
+		0EF631214838E602E4E8EE5A /* SupportViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AAB6ABBBA2E0F9E076A68D /* SupportViews.swift */; };
+		1C18397DBE1A8BBA1E476798 /* ReveilVIAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43645D57B1B5146F7ADFD661 /* ReveilVIAApp.swift */; };
+		1C378DAE2760565A8646F60D /* AlarmKitDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C80B7B183F7DBBF7617D42 /* AlarmKitDriver.swift */; };
+		22E94DACCB330DC3990DE662 /* ZIPFoundation-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2E6ADA9BE40E0D8B33187646 /* ZIPFoundation-LICENSE.txt */; };
+		288EFB2C8469337497138BCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE6AA0C3F7C14A3521E05593 /* Assets.xcassets */; };
+		3265ABC9F4229B134A955A94 /* TransitViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2CBE06E726063AC65FC8 /* TransitViews.swift */; };
+		3C0C6D649DDA466CCA06EBF2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A739073AFF602C040012B99 /* HomeView.swift */; };
+		6A7D4647A382184585EA2A68 /* AlarmEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A3F5D6084F404C5618CD1A /* AlarmEditor.swift */; };
+		70A285537ADEC0A50DF9784D /* TripActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3CC123860FE38EA38D3B6 /* TripActivityController.swift */; };
+		768CFEE0C5A1246744A76BBF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677F6714B3204FBE13829A4A /* DashboardView.swift */; };
+		A0ACF3072DD2BBF7637D5DD9 /* TripActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF279E73A3FBD280ED507572 /* TripActivityAttributes.swift */; };
+		BCB7B344D7EDE402675CA282 /* ReveilVIALiveActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 90D29CD264CD1CE53987D5CE /* ReveilVIALiveActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BFC03A2CE24F28FD559DCA35 /* RailCore in Frameworks */ = {isa = PBXBuildFile; productRef = 43B9395BC10E7390A014F7F5 /* RailCore */; };
+		D70F84F2E05EE0C399E22C8E /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C068C905971745AA398BA7A /* BackgroundRefresh.swift */; };
+		F1F863750E8AD17A362549E4 /* TripActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF279E73A3FBD280ED507572 /* TripActivityAttributes.swift */; };
+		FC3DA70DE13C6BAD9BBB0BF7 /* ReveilVIALiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AB07F1BDA943C1CEBDE42 /* ReveilVIALiveActivity.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		878008FFC7C64DD53322B367 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D8FE24E399E87E62339B03C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19EB4C790DCDE49FD3E2B6FE;
+			remoteInfo = ReveilVIALiveActivity;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5A852681CA7FEDDC46DAFE76 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BCB7B344D7EDE402675CA282 /* ReveilVIALiveActivity.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		25D702CD4548DF7F28A87545 /* ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ios; path = .; sourceTree = SOURCE_ROOT; };
+		2C1B2CBE06E726063AC65FC8 /* TransitViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitViews.swift; sourceTree = "<group>"; };
+		2E6ADA9BE40E0D8B33187646 /* ZIPFoundation-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ZIPFoundation-LICENSE.txt"; sourceTree = "<group>"; };
+		43645D57B1B5146F7ADFD661 /* ReveilVIAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReveilVIAApp.swift; sourceTree = "<group>"; };
+		677F6714B3204FBE13829A4A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		69A3F5D6084F404C5618CD1A /* AlarmEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditor.swift; sourceTree = "<group>"; };
+		6A739073AFF602C040012B99 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		6AA3CC123860FE38EA38D3B6 /* TripActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActivityController.swift; sourceTree = "<group>"; };
+		7C068C905971745AA398BA7A /* BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefresh.swift; sourceTree = "<group>"; };
+		83AAB6ABBBA2E0F9E076A68D /* SupportViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViews.swift; sourceTree = "<group>"; };
+		86C80B7B183F7DBBF7617D42 /* AlarmKitDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmKitDriver.swift; sourceTree = "<group>"; };
+		90D29CD264CD1CE53987D5CE /* ReveilVIALiveActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ReveilVIALiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C34E381B02066D3568A0C32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AF279E73A3FBD280ED507572 /* TripActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActivityAttributes.swift; sourceTree = "<group>"; };
+		B06AB07F1BDA943C1CEBDE42 /* ReveilVIALiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReveilVIALiveActivity.swift; sourceTree = "<group>"; };
+		C00E849A22F831E1AA845A39 /* JourneyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyModel.swift; sourceTree = "<group>"; };
+		C6650DB3EA46277ACF5AEBE5 /* ReveilVIA.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ReveilVIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E04C4931B3574338A70D938C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EE6AA0C3F7C14A3521E05593 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B837220FA29BA94D100A9BDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFC03A2CE24F28FD559DCA35 /* RailCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		153ADF7B8E95DAC2574060CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C6650DB3EA46277ACF5AEBE5 /* ReveilVIA.app */,
+				90D29CD264CD1CE53987D5CE /* ReveilVIALiveActivity.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		470CDEAF00DADCF7E93512E5 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				25D702CD4548DF7F28A87545 /* ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		6FC902CC6E38486377326513 = {
+			isa = PBXGroup;
+			children = (
+				DD253A4EEE6129934660BDE7 /* App */,
+				7D52F1B60955FF5D640BED12 /* LiveActivity */,
+				470CDEAF00DADCF7E93512E5 /* Packages */,
+				788E27A49C516C0D99A4000A /* Shared */,
+				153ADF7B8E95DAC2574060CF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		788E27A49C516C0D99A4000A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				AF279E73A3FBD280ED507572 /* TripActivityAttributes.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		7D52F1B60955FF5D640BED12 /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				E04C4931B3574338A70D938C /* Info.plist */,
+				B06AB07F1BDA943C1CEBDE42 /* ReveilVIALiveActivity.swift */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		DD253A4EEE6129934660BDE7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				69A3F5D6084F404C5618CD1A /* AlarmEditor.swift */,
+				86C80B7B183F7DBBF7617D42 /* AlarmKitDriver.swift */,
+				EE6AA0C3F7C14A3521E05593 /* Assets.xcassets */,
+				7C068C905971745AA398BA7A /* BackgroundRefresh.swift */,
+				677F6714B3204FBE13829A4A /* DashboardView.swift */,
+				6A739073AFF602C040012B99 /* HomeView.swift */,
+				9C34E381B02066D3568A0C32 /* Info.plist */,
+				C00E849A22F831E1AA845A39 /* JourneyModel.swift */,
+				43645D57B1B5146F7ADFD661 /* ReveilVIAApp.swift */,
+				83AAB6ABBBA2E0F9E076A68D /* SupportViews.swift */,
+				2C1B2CBE06E726063AC65FC8 /* TransitViews.swift */,
+				6AA3CC123860FE38EA38D3B6 /* TripActivityController.swift */,
+				2E6ADA9BE40E0D8B33187646 /* ZIPFoundation-LICENSE.txt */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		19EB4C790DCDE49FD3E2B6FE /* ReveilVIALiveActivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC190A77BCDD1413D050E972 /* Build configuration list for PBXNativeTarget "ReveilVIALiveActivity" */;
+			buildPhases = (
+				62F8C9DAABEC6746F02B470E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReveilVIALiveActivity;
+			packageProductDependencies = (
+			);
+			productName = ReveilVIALiveActivity;
+			productReference = 90D29CD264CD1CE53987D5CE /* ReveilVIALiveActivity.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		3BB60B1A0428DA5CE48602D2 /* ReveilVIA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80D6EEC81F8F31F34B7D1458 /* Build configuration list for PBXNativeTarget "ReveilVIA" */;
+			buildPhases = (
+				4A521642207B5F181A0479C6 /* Sources */,
+				F335161334D9BB8C935D54AE /* Resources */,
+				B837220FA29BA94D100A9BDD /* Frameworks */,
+				5A852681CA7FEDDC46DAFE76 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52D2E4A746EE4167E6CC8839 /* PBXTargetDependency */,
+			);
+			name = ReveilVIA;
+			packageProductDependencies = (
+				43B9395BC10E7390A014F7F5 /* RailCore */,
+			);
+			productName = ReveilVIA;
+			productReference = C6650DB3EA46277ACF5AEBE5 /* ReveilVIA.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D8FE24E399E87E62339B03C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = D72D16A935D50535B008AE92 /* Build configuration list for PBXProject "ReveilVIA" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 6FC902CC6E38486377326513;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1B8457F645536805408346C2 /* XCLocalSwiftPackageReference "." */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 153ADF7B8E95DAC2574060CF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3BB60B1A0428DA5CE48602D2 /* ReveilVIA */,
+				19EB4C790DCDE49FD3E2B6FE /* ReveilVIALiveActivity */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F335161334D9BB8C935D54AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				288EFB2C8469337497138BCF /* Assets.xcassets in Resources */,
+				22E94DACCB330DC3990DE662 /* ZIPFoundation-LICENSE.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4A521642207B5F181A0479C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A7D4647A382184585EA2A68 /* AlarmEditor.swift in Sources */,
+				1C378DAE2760565A8646F60D /* AlarmKitDriver.swift in Sources */,
+				D70F84F2E05EE0C399E22C8E /* BackgroundRefresh.swift in Sources */,
+				768CFEE0C5A1246744A76BBF /* DashboardView.swift in Sources */,
+				3C0C6D649DDA466CCA06EBF2 /* HomeView.swift in Sources */,
+				0317CFEA36BA625F9D1A8E78 /* JourneyModel.swift in Sources */,
+				1C18397DBE1A8BBA1E476798 /* ReveilVIAApp.swift in Sources */,
+				0EF631214838E602E4E8EE5A /* SupportViews.swift in Sources */,
+				3265ABC9F4229B134A955A94 /* TransitViews.swift in Sources */,
+				A0ACF3072DD2BBF7637D5DD9 /* TripActivityAttributes.swift in Sources */,
+				70A285537ADEC0A50DF9784D /* TripActivityController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62F8C9DAABEC6746F02B470E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC3DA70DE13C6BAD9BBB0BF7 /* ReveilVIALiveActivity.swift in Sources */,
+				F1F863750E8AD17A362549E4 /* TripActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		52D2E4A746EE4167E6CC8839 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19EB4C790DCDE49FD3E2B6FE /* ReveilVIALiveActivity */;
+			targetProxy = 878008FFC7C64DD53322B367 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		036B7FEB0EBE1DA9EC3B2BEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveActivity/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.codingpanda.reveilvia.prototype.activity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4DF1DC4C1CB9E9E82DFA1C3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Réveil VIA";
+				INFOPLIST_KEY_NSAlarmKitUsageDescription = "Réveil VIA programme une alarme avant l’arrivée du train à la gare choisie.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.codingpanda.reveilvia.prototype;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		6B9678F55B558DD0CD490F32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.3.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		72F299FA156C9DFB7DC0585D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveActivity/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.codingpanda.reveilvia.prototype.activity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E8C05A7346C8916037C27E09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Réveil VIA";
+				INFOPLIST_KEY_NSAlarmKitUsageDescription = "Réveil VIA programme une alarme avant l’arrivée du train à la gare choisie.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ca.codingpanda.reveilvia.prototype;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F59E834AAB12FABFBD89838B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.3.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		80D6EEC81F8F31F34B7D1458 /* Build configuration list for PBXNativeTarget "ReveilVIA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8C05A7346C8916037C27E09 /* Debug */,
+				4DF1DC4C1CB9E9E82DFA1C3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D72D16A935D50535B008AE92 /* Build configuration list for PBXProject "ReveilVIA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B9678F55B558DD0CD490F32 /* Debug */,
+				F59E834AAB12FABFBD89838B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DC190A77BCDD1413D050E972 /* Build configuration list for PBXNativeTarget "ReveilVIALiveActivity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				036B7FEB0EBE1DA9EC3B2BEE /* Debug */,
+				72F299FA156C9DFB7DC0585D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		1B8457F645536805408346C2 /* XCLocalSwiftPackageReference "." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = .;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		43B9395BC10E7390A014F7F5 /* RailCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RailCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D8FE24E399E87E62339B03C2 /* Project object */;
+}

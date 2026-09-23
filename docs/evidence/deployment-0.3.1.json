@@ -1,0 +1,21 @@
+{
+  "version": "0.3.1",
+  "build": 4,
+  "recordedAt": "2026-09-23T11:50:12.075182+00:00",
+  "device": "iPhone 16 Pro",
+  "signatureVerification": "codesign --verify --deep --strict: exit 0",
+  "simulatorBuild": "succeeded",
+  "deviceBuild": "succeeded",
+  "install": "success",
+  "launch": "success",
+  "processes": [
+    {
+      "name": "ReveilVIALiveActivity",
+      "pid": 44485
+    },
+    {
+      "name": "ReveilVIA",
+      "pid": 44500
+    }
+  ]
+}
