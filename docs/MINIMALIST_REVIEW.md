@@ -12,7 +12,7 @@
 
 ## Vérifications
 
-- Compilation, installation et lancement réussis sur le simulateur iPhone 17 Pro (iOS 26.1). La capture après nettoyage montre le premier écran sans bouton d’information ni commande d’actualisation distincte.
+- Compilation, installation et lancement réussis sur le simulateur iPhone 17 Pro (iOS 26.1). L’inspection du premier écran a confirmé l’absence de bouton d’information et de commande d’actualisation distincte.
 - `swift test --package-path ios` : 31 tests réussis; le test réseau optionnel a été ignoré.
 - `git diff --check` sur les fichiers touchés : réussi.
 

@@ -39,8 +39,6 @@ Le remplacement persiste son intention, programme une nouvelle alarme, la relit 
 - Les trajets sont actuellement limités aux numéros 20–99 et aux données couvertes par le GTFS. Ce filtre constitue un périmètre de prototype, pas une qualification commerciale du corridor.
 - Source des horaires : VIA Rail Canada inc., [Licence du gouvernement ouvert – Canada](https://open.canada.ca/fr/licence-du-gouvernement-ouvert-canada). Cette licence n’est pas attribuée au [suivi JSON](https://tsimobile.viarail.ca/data/allData.json); les conditions de collecte, cache et redistribution restent à établir avant une bêta ou un service hébergé.
 
-Le cadrage des 13–14 septembre dans `PLAN.md` est historique. Les décisions ultérieures utilisées ici comprennent les ajustements dans les deux sens, l’avance libre et les vraies données dès le prototype. Les documents existants n’ont pas été remplacés.
-
 ## Vérifications
 
 ```sh
@@ -55,16 +53,12 @@ Les tests hors réseau couvrent ZIP/CSV, calendriers, changements d’heure, con
 VIA_LIVE_SMOKE=1 swift test --package-path ios --filter officialSourcesWithoutAnyBackend
 ```
 
-La CI exécute les tests Swift hors réseau et compile l’app pour simulateur. Un succès local ne prouve pas une exécution CI distante. Voir [l’état des validations](docs/PROTOTYPE_STATUS.md) et la [revue visuelle Designly](docs/DESIGN_REVIEW.md).
+La CI exécute les tests Swift hors réseau et compile l’app pour simulateur. Voir la [revue de simplicité](docs/MINIMALIST_REVIEW.md) pour les changements d’interface et leurs limites.
 
 La décompression utilise ZIPFoundation, version verrouillée par SwiftPM; sa licence MIT est incluse dans `ios/App/ZIPFoundation-LICENSE.txt`. Les anciennes dépendances Python, le serveur HTTP et la configuration Docker ont été retirés.
 
-## Identité visuelle
-
-L’app possède une icône d’accueil. Voir [l’asset et son prompt](docs/ICON.md).
-
 ## Prochaine preuve
 
-La version 0.3.2 (5) est signée, installée et lancée sur l’iPhone 16 Pro. Il reste à mesurer programmation, relecture et sonnerie séparément, y compris silencieux/Sommeil, réseau perdu, fermeture forcée et redémarrage. Mesurer ensuite les créneaux réels accordés à BGAppRefreshTask et la durée de l’Activité en direct sur appareil. Une adaptation garantie à trente secondes téléphone verrouillé n’est pas démontrée.
+La version 0.3.2 (5), antérieure à cette PR, a été signée, installée et lancée sur l’iPhone 16 Pro. Le build de cette PR n’a pas pu être installé faute de compte et de profils de signature Xcode. Il reste à mesurer programmation, relecture et sonnerie séparément, y compris silencieux/Sommeil, réseau perdu, fermeture forcée et redémarrage. Mesurer ensuite les créneaux réels accordés à BGAppRefreshTask et la durée de l’Activité en direct sur appareil. Une adaptation garantie à trente secondes téléphone verrouillé n’est pas démontrée.
 
 Références : [exemple AlarmKit Apple](https://developer.apple.com/documentation/alarmkit/scheduling-an-alarm-with-alarmkit), [dates GTFS](https://gtfs.org/documentation/schedule/reference/), [images CI GitHub](https://github.com/actions/runner-images).
