@@ -12,7 +12,7 @@ L’application ne demande aucun compte ni accès à votre position et n’intè
 
 ## Connexions réseau
 
-L’application télécharge les horaires GTFS et le suivi directement auprès des serveurs VIA Rail, en HTTPS. Les serveurs destinataires peuvent recevoir votre adresse IP et les informations habituelles d’une requête réseau. Votre configuration de réveil n’est pas envoyée à VIA Rail ni à un serveur du développeur. Le traitement des connexions par VIA relève de ses propres politiques.
+L’application télécharge les horaires GTFS et le suivi directement auprès des serveurs VIA Rail, en HTTPS. Les serveurs destinataires peuvent recevoir votre adresse IP et les informations habituelles d’une requête réseau. Votre configuration de réveil n’est pas envoyée à VIA Rail ni à un serveur du développeur. Le traitement des connexions par VIA relève de ses propres politiques. Lorsqu’une carte du train est affichée, MapKit charge également les données cartographiques auprès d’Apple; ces connexions relèvent des politiques d’Apple. La carte utilise la position publiée du train, sans demander la position du voyageur.
 
 ## Conservation et suppression
 
