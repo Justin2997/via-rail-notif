@@ -64,3 +64,9 @@ Des builds de développement ont été signés, installés et lancés sur l’iP
 La page Informations donne accès à la confidentialité, aux limites du suivi et aux sources. Le bundle identifier historique est conservé pour préserver les mises à jour et le réveil existant; le suffixe technique `.prototype` ne s’affiche pas aux voyageurs.
 
 Références : [exemple AlarmKit Apple](https://developer.apple.com/documentation/alarmkit/scheduling-an-alarm-with-alarmkit), [dates GTFS](https://gtfs.org/documentation/schedule/reference/), [images CI GitHub](https://github.com/actions/runner-images).
+
+## English and French
+
+The app, alarm alerts, accessibility labels and Live Activity support English and French. The English name is **VIA Wake**; the French name remains **Réveil VIA**. iOS selects the language from your preferred languages. You can also choose English or French in Settings → Apps → VIA Wake → Language. Date and time formatting follows your locale while keeping each station’s time zone.
+
+To preview either language in Xcode, edit the `ReveilVIA` scheme’s Run options and set App Language to English or French. Recreate an existing alarm or Live Activity after changing languages so its system presentation uses the new language.

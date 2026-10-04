@@ -1,0 +1,1558 @@
+{
+  "sourceLanguage": "fr",
+  "strings": {
+    "Réveil VIA": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réveil VIA"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VIA Wake"
+          }
+        }
+      }
+    },
+    "Train %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Train %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Train %@"
+          }
+        }
+      }
+    },
+    "Votre gare": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre gare"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your station"
+          }
+        }
+      }
+    },
+    "Sonnerie en cours": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonnerie en cours"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarm ringing"
+          }
+        }
+      }
+    },
+    "Je suis réveillé · arrêter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je suis réveillé · arrêter"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I’m awake · stop"
+          }
+        }
+      }
+    },
+    "Modifier le réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier le réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit alarm"
+          }
+        }
+      }
+    },
+    "Désactiver le réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désactiver le réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn off alarm"
+          }
+        }
+      }
+    },
+    "Gares et position publiée": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gares et position publiée"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stations and reported location"
+          }
+        }
+      }
+    },
+    "Reposez-vous.\nGardez votre gare en vue.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reposez-vous.\nGardez votre gare en vue."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest easy.\nKeep your station in sight."
+          }
+        }
+      }
+    },
+    "Choisissez votre train et votre gare.\nProgrammez un réveil avant l’arrivée.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez votre train et votre gare.\nProgrammez un réveil avant l’arrivée."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose your train and station.\nSet an alarm before arrival."
+          }
+        }
+      }
+    },
+    "Configurer un réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurer un réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set an alarm"
+          }
+        }
+      }
+    },
+    "Votre train apparaîtra ici une fois le réveil activé.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre train apparaîtra ici une fois le réveil activé."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your train will appear here once you activate the alarm."
+          }
+        }
+      }
+    },
+    "Train de la nouvelle flotte VIA Rail Canada": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Train de la nouvelle flotte VIA Rail Canada"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Train from VIA Rail Canada’s new fleet"
+          }
+        }
+      }
+    },
+    "Votre compagnon de voyage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre compagnon de voyage"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your travel companion"
+          }
+        }
+      }
+    },
+    "C’est l’heure de vous réveiller": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C’est l’heure de vous réveiller"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time to wake up"
+          }
+        }
+      }
+    },
+    "Réveil programmé": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réveil programmé"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarm scheduled"
+          }
+        }
+      }
+    },
+    "État du réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "État du réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarm status"
+          }
+        }
+      }
+    },
+    "Réveil à %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réveil à %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarm at %@"
+          }
+        }
+      }
+    },
+    "Heure à vérifier": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heure à vérifier"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check alarm time"
+          }
+        }
+      }
+    },
+    "Plusieurs alarmes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plusieurs alarmes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Multiple alarms"
+          }
+        }
+      }
+    },
+    "Avance choisie : %@ min": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avance choisie : %@ min"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selected lead time: %@ min"
+          }
+        }
+      }
+    },
+    "%@ %% du temps écoulé": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %% du temps écoulé"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %% of time elapsed"
+          }
+        }
+      }
+    },
+    "Temps écoulé du départ au réveil programmé": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temps écoulé du départ au réveil programmé"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time elapsed from departure to the scheduled alarm"
+          }
+        }
+      }
+    },
+    "%@ pour cent": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ pour cent"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ percent"
+          }
+        }
+      }
+    },
+    "Départ": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Départ"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Departure"
+          }
+        }
+      }
+    },
+    "Arrivée estimée": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrivée estimée"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated arrival"
+          }
+        }
+      }
+    },
+    "Arrivée prévue": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrivée prévue"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scheduled arrival"
+          }
+        }
+      }
+    },
+    "Arrivée à confirmer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrivée à confirmer"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrival to be confirmed"
+          }
+        }
+      }
+    },
+    "%@ à %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ à %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ at %@"
+          }
+        }
+      }
+    },
+    "Position publiée": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Position publiée"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reported location"
+          }
+        }
+      }
+    },
+    "Gares et arrivées": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gares et arrivées"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stations and arrivals"
+          }
+        }
+      }
+    },
+    "Estimée · horaire prévu %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimée · horaire prévu %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated · scheduled time %@"
+          }
+        }
+      }
+    },
+    "Horaire prévu": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Horaire prévu"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scheduled time"
+          }
+        }
+      }
+    },
+    "Gares sans horaire publié": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gares sans horaire publié"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stations without published times"
+          }
+        }
+      }
+    },
+    "Horaire indisponible · réveil indisponible à cette gare": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Horaire indisponible · réveil indisponible à cette gare"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time unavailable · alarm unavailable at this station"
+          }
+        }
+      }
+    },
+    "Gérer le réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gérer le réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage alarm"
+          }
+        }
+      }
+    },
+    "Les sources ne concordent pas pour cette desserte. L’activation du réveil reste bloquée tant que le conflit persiste.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les sources ne concordent pas pour cette desserte. L’activation du réveil reste bloquée tant que le conflit persiste."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sources disagree for this service. Alarm activation remains blocked until the conflict is resolved."
+          }
+        }
+      }
+    },
+    "Réveil enregistré": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réveil enregistré"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved alarm"
+          }
+        }
+      }
+    },
+    "État à vérifier": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "État à vérifier"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Status to check"
+          }
+        }
+      }
+    },
+    "Départ %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Départ %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Departure %@"
+          }
+        }
+      }
+    },
+    "Estimée": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimée"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated"
+          }
+        }
+      }
+    },
+    "Prévue": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prévue"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scheduled"
+          }
+        }
+      }
+    },
+    "Actualisation… · données du %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation… · données du %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refreshing… · data from %@"
+          }
+        }
+      }
+    },
+    "Mis à jour à %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mis à jour à %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updated at %@"
+          }
+        }
+      }
+    },
+    "Actualisation…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refreshing…"
+          }
+        }
+      }
+    },
+    "Votre gare : %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre gare : %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your station: %@"
+          }
+        }
+      }
+    },
+    "Arrêter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrêter"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop"
+          }
+        }
+      }
+    },
+    "Activités en direct désactivées : activez-les dans les réglages de Réveil VIA pour afficher le réveil sur l’écran verrouillé.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activités en direct désactivées : activez-les dans les réglages de Réveil VIA pour afficher le réveil sur l’écran verrouillé."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live Activities are disabled. Enable them in VIA Wake’s settings to show the alarm on your Lock Screen."
+          }
+        }
+      }
+    },
+    "Affichage sur l’écran verrouillé indisponible. Rouvrez l’app pour réessayer; le réveil reste programmé.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichage sur l’écran verrouillé indisponible. Rouvrez l’app pour réessayer; le réveil reste programmé."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock Screen display is unavailable. Reopen the app to try again; your alarm remains scheduled."
+          }
+        }
+      }
+    },
+    "Votre trajet": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre trajet"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your trip"
+          }
+        }
+      }
+    },
+    "Changer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changer"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change"
+          }
+        }
+      }
+    },
+    "Certaines gares n’ont pas d’heure publiée et ne permettent pas de programmer un réveil.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certaines gares n’ont pas d’heure publiée et ne permettent pas de programmer un réveil."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Some stations have no published arrival time and cannot be used to set an alarm."
+          }
+        }
+      }
+    },
+    "Me réveiller avant": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Me réveiller avant"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wake me before"
+          }
+        }
+      }
+    },
+    "Ne manquez pas votre gare.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne manquez pas votre gare."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Don’t miss your station."
+          }
+        }
+      }
+    },
+    "Choisissez votre train, votre gare et combien de minutes avant l’arrivée vous souhaitez être réveillé.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez votre train, votre gare et combien de minutes avant l’arrivée vous souhaitez être réveillé."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose your train, your station and how many minutes before arrival you want to wake up."
+          }
+        }
+      }
+    },
+    "Choisir un train VIA": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir un train VIA"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a VIA train"
+          }
+        }
+      }
+    },
+    "Autre avance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autre avance"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom lead time"
+          }
+        }
+      }
+    },
+    "Minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minutes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minutes"
+          }
+        }
+      }
+    },
+    "Avance en minutes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avance en minutes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lead time in minutes"
+          }
+        }
+      }
+    },
+    "Réveil souhaité": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réveil souhaité"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Requested alarm time"
+          }
+        }
+      }
+    },
+    "Activer le réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer le réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activate alarm"
+          }
+        }
+      }
+    },
+    "Desserte à vérifier : réveil indisponible.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desserte à vérifier : réveil indisponible."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Service needs verification: alarm unavailable."
+          }
+        }
+      }
+    },
+    "Avance du réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avance du réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarm lead time"
+          }
+        }
+      }
+    },
+    "L’alarme est enregistrée après activation. Un réveil existant reste actif jusque-là.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’alarme est enregistrée après activation. Un réveil existant reste actif jusque-là."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The alarm is saved after activation. Any existing alarm stays active until then."
+          }
+        }
+      }
+    },
+    "Confidentialité et sources": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confidentialité et sources"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy and sources"
+          }
+        }
+      }
+    },
+    "Votre réveil": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre réveil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your alarm"
+          }
+        }
+      }
+    },
+    "Fermer": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermer"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        }
+      }
+    },
+    "Terminé": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminé"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        }
+      }
+    },
+    "L’avance est déjà impossible": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’avance est déjà impossible"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The lead time has already passed"
+          }
+        }
+      }
+    },
+    "La gare est à venir : sonner maintenant": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La gare est à venir : sonner maintenant"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My station is still ahead: ring now"
+          }
+        }
+      }
+    },
+    "Une alarme sera demandée dans cinq secondes. Confirmez que la gare est encore à venir, ou modifiez l’avance.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une alarme sera demandée dans cinq secondes. Confirmez que la gare est encore à venir, ou modifiez l’avance."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An alarm will be requested for five seconds from now. Confirm that your station is still ahead, or change the lead time."
+          }
+        }
+      }
+    },
+    "Date du voyage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date du voyage"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel date"
+          }
+        }
+      }
+    },
+    "Chargement VIA…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chargement VIA…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading VIA…"
+          }
+        }
+      }
+    },
+    "Aucun train pour cette recherche.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun train pour cette recherche."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No trains match your search."
+          }
+        }
+      }
+    },
+    "Actualiser": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualiser"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh"
+          }
+        }
+      }
+    },
+    "Choisir un train": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir un train"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a train"
+          }
+        }
+      }
+    },
+    "Train ou gare": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Train ou gare"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Train or station"
+          }
+        }
+      }
+    },
+    "Dernière position publiée": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière position publiée"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last reported location"
+          }
+        }
+      }
+    },
+    "Dernière position connue": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière position connue"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last known location"
+          }
+        }
+      }
+    },
+    "Heure d’observation inconnue": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heure d’observation inconnue"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Observation time unknown"
+          }
+        }
+      }
+    },
+    "Position indisponible": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Position indisponible"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Location unavailable"
+          }
+        }
+      }
+    },
+    "Aucune position n’est inventée pour ce trajet.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune position n’est inventée pour ce trajet."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No location is inferred for this trip."
+          }
+        }
+      }
+    },
+    "Un compagnon de voyage indépendant pour les voyageurs de VIA Rail Canada. Cette application n’est pas une application officielle de VIA Rail.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un compagnon de voyage indépendant pour les voyageurs de VIA Rail Canada. Cette application n’est pas une application officielle de VIA Rail."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An independent travel companion for VIA Rail Canada passengers. This is not an official VIA Rail app."
+          }
+        }
+      }
+    },
+    "Version %@ (%@)": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@ (%@)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@ (%@)"
+          }
+        }
+      }
+    },
+    "Le réveil reste programmé sur votre iPhone. Une nouvelle estimation exploitable peut avancer ou retarder son heure lorsque l’app reçoit une mise à jour. En arrière-plan, iOS décide du moment des actualisations; elles ne sont pas continues.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le réveil reste programmé sur votre iPhone. Une nouvelle estimation exploitable peut avancer ou retarder son heure lorsque l’app reçoit une mise à jour. En arrière-plan, iOS décide du moment des actualisations; elles ne sont pas continues."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your alarm stays scheduled on your iPhone. A usable new estimate may move it earlier or later when the app receives an update. In the background, iOS decides when updates occur; they are not continuous."
+          }
+        }
+      }
+    },
+    "Les dates et heures du trajet utilisent le fuseau de chaque gare. Le réveil utilise le fuseau de votre gare d’arrivée. La barre de progression représente le temps écoulé jusqu’au réveil.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dates et heures du trajet utilisent le fuseau de chaque gare. Le réveil utilise le fuseau de votre gare d’arrivée. La barre de progression représente le temps écoulé jusqu’au réveil."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trip dates and times use each station’s time zone. The alarm uses your arrival station’s time zone. The progress bar shows time elapsed until the alarm."
+          }
+        }
+      }
+    },
+    "Confidentialité": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confidentialité"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy"
+          }
+        }
+      }
+    },
+    "Le trajet choisi, la gare, l’avance, l’état du réveil et les derniers horaires sont conservés sur votre iPhone. L’app ne demande ni compte ni accès à votre position et n’intègre aucun outil publicitaire ou d’analyse d’utilisation.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le trajet choisi, la gare, l’avance, l’état du réveil et les derniers horaires sont conservés sur votre iPhone. L’app ne demande ni compte ni accès à votre position et n’intègre aucun outil publicitaire ou d’analyse d’utilisation."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your selected trip, station, lead time, alarm status and latest schedules are stored on your iPhone. The app requires no account or location access and includes no advertising or usage analytics tools."
+          }
+        }
+      }
+    },
+    "L’app télécharge les horaires et le suivi directement auprès de VIA Rail en HTTPS. Comme pour toute connexion Internet, les serveurs destinataires peuvent recevoir votre adresse IP. Votre configuration de réveil n’est pas envoyée à VIA Rail ni à un serveur de l’application.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’app télécharge les horaires et le suivi directement auprès de VIA Rail en HTTPS. Comme pour toute connexion Internet, les serveurs destinataires peuvent recevoir votre adresse IP. Votre configuration de réveil n’est pas envoyée à VIA Rail ni à un serveur de l’application."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The app downloads schedules and tracking data directly from VIA Rail over HTTPS. As with any Internet connection, the receiving servers may receive your IP address. Your alarm settings are not sent to VIA Rail or to an app server."
+          }
+        }
+      }
+    },
+    "La désactivation arrête le réveil mais conserve votre dernière configuration. La suppression de l’app supprime son stockage local. Arrêtez votre réveil avant de supprimer l’app.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La désactivation arrête le réveil mais conserve votre dernière configuration. La suppression de l’app supprime son stockage local. Arrêtez votre réveil avant de supprimer l’app."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turning off the alarm keeps your last settings. Deleting the app removes its local storage. Stop your alarm before deleting the app."
+          }
+        }
+      }
+    },
+    "Sources": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sources"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sources"
+          }
+        }
+      }
+    },
+    "Horaires et suivi : VIA Rail Canada inc. Les horaires GTFS sont publiés sous Licence du gouvernement ouvert – Canada. Les images de paysage sont des illustrations générées.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Horaires et suivi : VIA Rail Canada inc. Les horaires GTFS sont publiés sous Licence du gouvernement ouvert – Canada. Les images de paysage sont des illustrations générées."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schedules and tracking: VIA Rail Canada Inc. GTFS schedules are published under the Open Government Licence – Canada. Landscape images are generated illustrations."
+          }
+        }
+      }
+    },
+    "Licence des horaires": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Licence des horaires"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schedule licence"
+          }
+        }
+      }
+    },
+    "Informations": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informations"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Information"
+          }
+        }
+      }
+    },
+    "Actualisation impossible : %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualisation impossible : %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to refresh: %@"
+          }
+        }
+      }
+    },
+    "Suivi du réveil indisponible. L’heure enregistrée est conservée.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivi du réveil indisponible. L’heure enregistrée est conservée."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alarm tracking is unavailable. The saved alarm time is kept."
+          }
+        }
+      }
+    },
+    "https://open.canada.ca/fr/licence-du-gouvernement-ouvert-canada": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://open.canada.ca/fr/licence-du-gouvernement-ouvert-canada"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://open.canada.ca/en/open-government-licence-canada"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

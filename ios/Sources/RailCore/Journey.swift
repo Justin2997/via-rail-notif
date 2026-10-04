@@ -93,13 +93,13 @@ public enum WakeError: LocalizedError {
 
     public var errorDescription: String? {
         switch self {
-        case .invalidLead: "Choisissez une avance de 1 à 1 440 minutes."
-        case .blocked: "Cette desserte ne peut pas être utilisée pour le réveil."
-        case .immediateConfirmation: "L’avance est déjà impossible. Confirmez une sonnerie immédiate."
-        case .denied: "Autorisez les alarmes dans les réglages de l’iPhone."
-        case .unverified: "La programmation n’a pas pu être vérifiée. Consultez l’état des alarmes."
-        case .inactive: "Le réveil n’est plus actif. Une nouvelle activation est nécessaire."
-        case .stale: "Actualisez les données avant d’activer ce réveil."
+        case .invalidLead: String(localized: "Choisissez une avance de 1 à 1 440 minutes.", bundle: .module)
+        case .blocked: String(localized: "Cette desserte ne peut pas être utilisée pour le réveil.", bundle: .module)
+        case .immediateConfirmation: String(localized: "L’avance est déjà impossible. Confirmez une sonnerie immédiate.", bundle: .module)
+        case .denied: String(localized: "Autorisez les alarmes dans les réglages de l’iPhone.", bundle: .module)
+        case .unverified: String(localized: "La programmation n’a pas pu être vérifiée. Consultez l’état des alarmes.", bundle: .module)
+        case .inactive: String(localized: "Le réveil n’est plus actif. Une nouvelle activation est nécessaire.", bundle: .module)
+        case .stale: String(localized: "Actualisez les données avant d’activer ce réveil.", bundle: .module)
         }
     }
 }

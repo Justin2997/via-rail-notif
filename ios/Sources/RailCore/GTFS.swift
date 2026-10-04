@@ -5,10 +5,10 @@ enum ViaDataError: LocalizedError {
     case invalid(String), outsideHorizon, tooLarge, http(Int)
     var errorDescription: String? {
         switch self {
-        case .invalid(let detail): "Données VIA invalides : \(detail)."
-        case .outsideHorizon: "Date hors de la période couverte par les horaires VIA."
-        case .tooLarge: "Le fichier VIA dépasse la taille autorisée."
-        case .http(let status): "Source VIA indisponible (HTTP \(status))."
+        case .invalid(let detail): String(localized: "Données VIA invalides : \(String(detail)).", bundle: .module)
+        case .outsideHorizon: String(localized: "Date hors de la période couverte par les horaires VIA.", bundle: .module)
+        case .tooLarge: String(localized: "Le fichier VIA dépasse la taille autorisée.", bundle: .module)
+        case .http(let status): String(localized: "Source VIA indisponible (HTTP \(String(status))).", bundle: .module)
         }
     }
 }
@@ -22,7 +22,7 @@ enum ViaTime {
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.isLenient = false
         guard let date = formatter.date(from: value), formatter.string(from: date) == value else {
-            throw ViaDataError.invalid("date de service")
+            throw ViaDataError.invalid(String(localized: "date de service", bundle: .module))
         }
         return date
     }
@@ -56,15 +56,15 @@ enum ViaTime {
     static func gtfs(day: String, clock: String, zone: String) throws -> Date {
         _ = try self.day(day)
         guard let timeZone = TimeZone(identifier: zone) else {
-            throw ViaDataError.invalid("fuseau GTFS")
+            throw ViaDataError.invalid(String(localized: "fuseau GTFS", bundle: .module))
         }
         guard clock.range(of: #"^\d{1,3}:\d{2}:\d{2}$"#, options: .regularExpression) != nil else {
-            throw ViaDataError.invalid("heure GTFS")
+            throw ViaDataError.invalid(String(localized: "heure GTFS", bundle: .module))
         }
         let parts = clock.split(separator: ":").compactMap { Int($0) }
         guard parts.count == 3, (0...240).contains(parts[0]),
               (0..<60).contains(parts[1]), (0..<60).contains(parts[2]) else {
-            throw ViaDataError.invalid("heure GTFS")
+            throw ViaDataError.invalid(String(localized: "heure GTFS", bundle: .module))
         }
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -72,7 +72,7 @@ enum ViaTime {
         formatter.timeZone = timeZone
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         guard let noon = formatter.date(from: day + " 12:00:00") else {
-            throw ViaDataError.invalid("date GTFS")
+            throw ViaDataError.invalid(String(localized: "date GTFS", bundle: .module))
         }
         return noon.addingTimeInterval(Double((parts[0] - 12) * 3600 + parts[1] * 60 + parts[2]))
     }
@@ -94,7 +94,7 @@ enum CSV {
     // UTF-8 parser supporting BOM, quoted commas, escaped quotes and embedded CR/LF.
     static func rows(_ data: Data) throws -> [[String: String]] {
         guard let text = String(data: data, encoding: .utf8) else {
-            throw ViaDataError.invalid("encodage CSV")
+            throw ViaDataError.invalid(String(localized: "encodage CSV", bundle: .module))
         }
         let bytes = Array(text.trimmingPrefix("\u{FEFF}").utf8)
         var rows: [[String]] = [], row: [String] = [], field: [UInt8] = []
@@ -118,17 +118,17 @@ enum CSV {
             } else if byte == 34 && field.isEmpty && !closed {
                 quoted = true
             } else {
-                guard !closed && byte != 34 else { throw ViaDataError.invalid("guillemets CSV") }
+                guard !closed && byte != 34 else { throw ViaDataError.invalid(String(localized: "guillemets CSV", bundle: .module)) }
                 field.append(byte)
             }
             index += 1
         }
-        guard !quoted else { throw ViaDataError.invalid("guillemets CSV non fermés") }
+        guard !quoted else { throw ViaDataError.invalid(String(localized: "guillemets CSV non fermés", bundle: .module)) }
         if !row.isEmpty || !field.isEmpty || closed { row.append(value()); rows.append(row) }
         guard let header = rows.first, Set(header).count == header.count,
-              !header.contains("") else { throw ViaDataError.invalid("en-tête CSV") }
+              !header.contains("") else { throw ViaDataError.invalid(String(localized: "en-tête CSV", bundle: .module)) }
         return try rows.dropFirst().map { row in
-            guard row.count == header.count else { throw ViaDataError.invalid("colonnes CSV") }
+            guard row.count == header.count else { throw ViaDataError.invalid(String(localized: "colonnes CSV", bundle: .module)) }
             return Dictionary(uniqueKeysWithValues: zip(header, row))
         }
     }
@@ -159,13 +159,13 @@ struct GTFSSchedule: Sendable {
         for name in ["feed_info", "agency", "routes", "trips", "stops", "stop_times",
                      "calendar", "calendar_dates"] {
             guard let entry = archive[name + ".txt"] else { continue }
-            guard entry.type == .file else { throw ViaDataError.invalid("table GTFS") }
+            guard entry.type == .file else { throw ViaDataError.invalid(String(localized: "table GTFS", bundle: .module)) }
             var contents = Data()
             let checksum = try archive.extract(entry) { chunk in
                 guard contents.count + chunk.count <= 50_000_000 else { throw ViaDataError.tooLarge }
                 contents.append(chunk)
             }
-            guard checksum == entry.checksum else { throw ViaDataError.invalid("CRC GTFS") }
+            guard checksum == entry.checksum else { throw ViaDataError.invalid(String(localized: "CRC GTFS", bundle: .module)) }
             tables[name] = try CSV.rows(contents)
         }
         try self.init(tables: tables)
@@ -174,7 +174,7 @@ struct GTFSSchedule: Sendable {
     init(tables: [String: [Row]]) throws {
         func table(_ name: String) throws -> [Row] {
             guard let rows = tables[name], !rows.isEmpty else {
-                throw ViaDataError.invalid("table \(name) absente")
+                throw ViaDataError.invalid(String(localized: "table \(name) absente", bundle: .module))
             }
             return rows
         }
@@ -182,13 +182,13 @@ struct GTFSSchedule: Sendable {
             var result: [String: Row] = [:]
             for row in rows {
                 let id = try row.required(key)
-                guard result[id] == nil else { throw ViaDataError.invalid("identifiant GTFS dupliqué") }
+                guard result[id] == nil else { throw ViaDataError.invalid(String(localized: "identifiant GTFS dupliqué", bundle: .module)) }
                 result[id] = row
             }
             return result
         }
         let info = try table("feed_info")
-        guard info.count == 1 else { throw ViaDataError.invalid("horizon GTFS ambigu") }
+        guard info.count == 1 else { throw ViaDataError.invalid(String(localized: "horizon GTFS ambigu", bundle: .module)) }
         start = try info[0].required("feed_start_date")
         end = try info[0].required("feed_end_date")
         agencies = try unique(table("agency"), "agency_id")
@@ -201,7 +201,7 @@ struct GTFSSchedule: Sendable {
             let key = try row.required("service_id") + ":" + row.required("date")
             let type = try row.required("exception_type")
             guard changes[key] == nil, ["1", "2"].contains(type) else {
-                throw ViaDataError.invalid("exception de calendrier")
+                throw ViaDataError.invalid(String(localized: "exception de calendrier", bundle: .module))
             }
             changes[key] = type
         }
@@ -211,7 +211,7 @@ struct GTFSSchedule: Sendable {
             let trip = try row.required("trip_id"), station = try row.required("stop_id")
             guard trips[trip] != nil, stations[station] != nil,
                   let sequence = Int(try row.required("stop_sequence")), sequence >= 0 else {
-                throw ViaDataError.invalid("référence d’arrêt GTFS")
+                throw ViaDataError.invalid(String(localized: "référence d’arrêt GTFS", bundle: .module))
             }
             groups[trip, default: []].append(row)
         }
@@ -236,7 +236,7 @@ struct GTFSSchedule: Sendable {
 
 extension Dictionary where Key == String, Value == String {
     func required(_ name: String) throws -> String {
-        guard let value = self[name], !value.isEmpty else { throw ViaDataError.invalid("champ \(name)") }
+        guard let value = self[name], !value.isEmpty else { throw ViaDataError.invalid(String(localized: "champ \(name)", bundle: .module)) }
         return value
     }
 }

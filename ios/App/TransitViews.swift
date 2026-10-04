@@ -3,9 +3,9 @@ import SwiftUI
 
 func railTime(_ date: Date, zone: String = "America/Toronto", includeDate: Bool = false) -> String {
     let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "fr_CA")
+    formatter.locale = .current
     formatter.timeZone = TimeZone(identifier: zone)
-    formatter.dateFormat = includeDate ? "d MMM, HH:mm z" : "HH:mm"
+    formatter.setLocalizedDateFormatFromTemplate(includeDate ? "dMMMjmz" : "jm")
     return formatter.string(from: date)
 }
 
@@ -16,9 +16,9 @@ func railServiceDate(_ value: String) -> String {
     parser.dateFormat = "yyyy-MM-dd"
     guard let date = parser.date(from: value) else { return value }
     let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "fr_CA")
+    formatter.locale = .current
     formatter.timeZone = parser.timeZone
-    formatter.dateFormat = "d MMM yyyy"
+    formatter.setLocalizedDateFormatFromTemplate("dMMMyyyy")
     return formatter.string(from: date)
 }
 
@@ -42,7 +42,7 @@ struct TrainRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8)) : AnyLayout(HStackLayout(alignment: .firstTextBaseline))) {
-                Text("Train \(journey.number)").font(.headline)
+                Text(String(localized: "Train \(String(journey.number))")).font(.headline)
                 if !typeSize.isAccessibilitySize { Spacer(minLength: 8) }
                 TrainStatus(journey: journey)
             }
@@ -52,8 +52,8 @@ struct TrainRow: View {
             if let last = journey.stops.last {
                 TimelineView(.periodic(from: .now, by: 30)) { context in
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Départ \(railTime(journey.departure, zone: journey.stops.first?.timeZone ?? "America/Toronto", includeDate: true))")
-                        Text("\(JourneyDisplay.isEstimated(last, in: journey, now: context.date) ? "Estimée" : "Prévue") \(railTime(JourneyDisplay.arrival(last, in: journey, now: context.date), zone: last.timeZone, includeDate: true))")
+                        Text(String(localized: "Départ \(String(railTime(journey.departure, zone: journey.stops.first?.timeZone ?? "America/Toronto", includeDate: true)))"))
+                        Text("\(JourneyDisplay.isEstimated(last, in: journey, now: context.date) ? String(localized: "Estimée") : String(localized: "Prévue")) \(railTime(JourneyDisplay.arrival(last, in: journey, now: context.date), zone: last.timeZone, includeDate: true))")
                     }.font(.caption).monospacedDigit().foregroundStyle(Color("SecondaryText"))
                 }
             }
@@ -69,11 +69,11 @@ struct DataReceipt: View {
     var receivedAt: Date? = nil
     var body: some View {
         if let receipt = receivedAt ?? feed?.receivedAt {
-            Text(loading ? "Actualisation… · données du \(railTime(receipt, includeDate: true))" :
-                 "Mis à jour à \(railTime(receipt, includeDate: true))")
+            Text(loading ? String(localized: "Actualisation… · données du \(String(railTime(receipt, includeDate: true)))") :
+                 String(localized: "Mis à jour à \(String(railTime(receipt, includeDate: true)))"))
                 .font(.caption).foregroundStyle(Color("SecondaryText"))
         } else if loading {
-            Text("Actualisation…")
+            Text(String(localized: "Actualisation…"))
                 .font(.caption).foregroundStyle(Color("SecondaryText"))
         }
     }

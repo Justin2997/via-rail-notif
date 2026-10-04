@@ -97,7 +97,7 @@ public actor ViaClient {
                 cache.scheduleReceivedAt = clock()
             } catch {
                 guard parsedSchedule != nil, inHorizon else { throw error }
-                warnings.append("Horaires sauvegardés sur l’iPhone : actualisation indisponible.")
+                warnings.append(String(localized: "Horaires sauvegardés sur l’iPhone : actualisation indisponible.", bundle: .module))
             }
         }
         do {
@@ -106,7 +106,7 @@ public actor ViaClient {
             cache.live = data
             cache.liveReceivedAt = clock()
         } catch {
-            warnings.append("Suivi VIA indisponible. Dernier relevé conservé avec sa date d’origine.")
+            warnings.append(String(localized: "Suivi VIA indisponible. Dernier relevé conservé avec sa date d’origine.", bundle: .module))
         }
         let feed = try normalized(day: day, now: clock())
         if let cacheURL {
@@ -114,7 +114,7 @@ public actor ViaClient {
                 try FileManager.default.createDirectory(at: cacheURL.deletingLastPathComponent(), withIntermediateDirectories: true)
                 try JSONEncoder().encode(cache).write(to: cacheURL, options: .atomic)
             } catch {
-                warnings.append("Le cache n’a pas pu être sauvegardé sur l’iPhone.")
+                warnings.append(String(localized: "Le cache n’a pas pu être sauvegardé sur l’iPhone.", bundle: .module))
                 return try normalized(day: day, now: clock())
             }
         }
@@ -122,13 +122,13 @@ public actor ViaClient {
     }
 
     private func normalized(day: String, now: Date) throws -> Feed {
-        guard let schedule = parsedSchedule else { throw ViaDataError.invalid("horaires absents") }
+        guard let schedule = parsedSchedule else { throw ViaDataError.invalid(String(localized: "horaires absents", bundle: .module)) }
         let live = try cache.live.map { try JSONDecoder().decode([String: LiveTrain].self, from: $0) } ?? [:]
         let ordered = cache.ordering.validate(live)
         return Feed(journeys: try schedule.journeysAvailable(on: day, live: ordered, receivedAt: cache.liveReceivedAt, now: now),
                     receivedAt: cache.liveReceivedAt, generatedAt: now,
                     error: warnings.isEmpty ? nil : warnings.joined(separator: " "),
-                    notice: "Connexion directe à VIA Rail. Âge des prévisions inconnu.",
+                    notice: String(localized: "Connexion directe à VIA Rail. Âge des prévisions inconnu.", bundle: .module),
                     attribution: "Source : VIA Rail Canada inc. Horaires GTFS sous Licence du gouvernement ouvert – Canada.")
     }
 }

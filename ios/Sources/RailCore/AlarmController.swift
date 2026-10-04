@@ -41,7 +41,7 @@ public struct WakeSession: Codable, Sendable {
     public private(set) var session: WakeSession?
     public private(set) var observed: [DeviceAlarm] = []
     public private(set) var isBusy = false
-    public private(set) var status = "Aucun réveil actif"
+    public private(set) var status = String(localized: "Aucun réveil actif", bundle: .module)
     public private(set) var error: String?
     private let driver: any AlarmDriver
     private let persistence: any WakePersistence
@@ -50,7 +50,7 @@ public struct WakeSession: Codable, Sendable {
         self.driver = driver
         self.persistence = persistence
         do { session = try persistence.load() }
-        catch { self.error = "Lecture du réveil sauvegardé impossible : \(error.localizedDescription)" }
+        catch { self.error = String(localized: "Lecture du réveil sauvegardé impossible : \(String(error.localizedDescription))", bundle: .module) }
     }
 
     private func persist(_ value: WakeSession) throws {
@@ -63,7 +63,7 @@ public struct WakeSession: Codable, Sendable {
         do { try refresh() }
         catch {
             observed = []
-            status = "État actuel inconnu"
+            status = String(localized: "État actuel inconnu", bundle: .module)
             self.error = error.localizedDescription
         }
     }
@@ -78,10 +78,10 @@ public struct WakeSession: Codable, Sendable {
             guard observed.isEmpty else { throw WakeError.unverified }
             current.verifiedAt = .now
             try persist(current)
-            status = "Réveil arrêté"
+            status = String(localized: "Réveil arrêté", bundle: .module)
         } else if !current.active {
-            status = observed.contains(where: { $0.ringing }) ? "Sonnerie en cours" :
-                "Réveil terminé — réactivation nécessaire"
+            status = observed.contains(where: { $0.ringing }) ? String(localized: "Sonnerie en cours", bundle: .module) :
+                String(localized: "Réveil terminé — réactivation nécessaire", bundle: .module)
         } else if let pending = current.pendingID,
                   !observed.contains(where: { $0.ringing }),
                   observed.contains(where: { $0.id == pending && !$0.ringing &&
@@ -97,26 +97,26 @@ public struct WakeSession: Codable, Sendable {
             current.alarmIDs = [pending]
             current.verifiedAt = .now
             try persist(current)
-            status = "Programmation vérifiée"
+            status = String(localized: "Programmation vérifiée", bundle: .module)
         } else if observed.contains(where: { $0.ringing }) {
             current.active = false
             try persist(current)
             // Do not stop a ringing alarm merely because it was observed.
-            status = "Sonnerie en cours — réactivation ensuite nécessaire"
+            status = String(localized: "Sonnerie en cours — réactivation ensuite nécessaire", bundle: .module)
         } else if observed.isEmpty {
             current.active = false
             try persist(current)
-            status = "Alarme absente — réactivation nécessaire"
+            status = String(localized: "Alarme absente — réactivation nécessaire", bundle: .module)
         } else {
             current.verifiedAt = .now
             try persist(current)
             if observed.count > 1 {
-                status = "Plusieurs alarmes — arrêt ou modification nécessaire"
+                status = String(localized: "Plusieurs alarmes — arrêt ou modification nécessaire", bundle: .module)
             } else if current.pendingID == nil,
                       abs(observed[0].date.timeIntervalSince(current.desiredDate)) < 1 {
-                status = "Programmation vérifiée"
+                status = String(localized: "Programmation vérifiée", bundle: .module)
             } else {
-                status = "Modification non appliquée — heure enregistrée conservée"
+                status = String(localized: "Modification non appliquée — heure enregistrée conservée", bundle: .module)
             }
         }
     }
@@ -162,7 +162,7 @@ public struct WakeSession: Codable, Sendable {
         try persist(current)
         do {
             try await driver.schedule(id: newID, date: current.desiredDate,
-                                      station: current.stop?.name ?? "Gare suivie")
+                                      station: current.stop?.name ?? String(localized: "Gare suivie", bundle: .module))
         } catch {
             // A driver can throw after installing the alarm. Roll back only when
             // the OS confirms that the replacement was never installed.
@@ -193,13 +193,13 @@ public struct WakeSession: Codable, Sendable {
             guard WakePolicy.acceptUpdate(previous: current.journey, incoming: journey,
                                           stopID: current.stopID, now: now),
                   let stop = journey.stops.first(where: { $0.id == current.stopID }) else {
-                status = "Mise à jour inexploitable — heure programmée conservée"
+                status = String(localized: "Mise à jour inexploitable — heure programmée conservée", bundle: .module)
                 return
             }
             let desired = try WakePolicy.desiredDate(arrival: stop.arrival,
                                                     leadMinutes: current.leadMinutes)
             guard desired > now else {
-                status = "Avance devenue impossible — confirmez une sonnerie immédiate"
+                status = String(localized: "Avance devenue impossible — confirmez une sonnerie immédiate", bundle: .module)
                 return // The feed does not establish that the station is still ahead.
             }
             current = session ?? current
@@ -226,7 +226,7 @@ public struct WakeSession: Codable, Sendable {
             try refresh()
             error = nil
         } catch {
-            status = "Arrêt non confirmé"
+            status = String(localized: "Arrêt non confirmé", bundle: .module)
             self.error = error.localizedDescription
         }
     }
