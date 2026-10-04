@@ -61,7 +61,13 @@ public actor ViaClient {
     public func load(serviceDate: String) async throws -> Feed {
         _ = try ViaTime.day(serviceDate)
         if let inFlight {
-            _ = try await inFlight.value
+            do { _ = try await inFlight.value }
+            catch {
+                // The shared request may fail only because its caller browsed
+                // outside the GTFS horizon. A valid waiting date can still load.
+                guard parsedSchedule != nil else { throw error }
+                return try normalized(day: serviceDate, now: clock())
+            }
             return try normalized(day: serviceDate, now: clock())
         }
         // Concurrent screens share one transfer; parsing and ZIP work remain off the main actor.
@@ -119,7 +125,7 @@ public actor ViaClient {
         guard let schedule = parsedSchedule else { throw ViaDataError.invalid("horaires absents") }
         let live = try cache.live.map { try JSONDecoder().decode([String: LiveTrain].self, from: $0) } ?? [:]
         let ordered = cache.ordering.validate(live)
-        return Feed(journeys: try schedule.journeys(day: day, live: ordered, receivedAt: cache.liveReceivedAt, now: now),
+        return Feed(journeys: try schedule.journeysAvailable(on: day, live: ordered, receivedAt: cache.liveReceivedAt, now: now),
                     receivedAt: cache.liveReceivedAt, generatedAt: now,
                     error: warnings.isEmpty ? nil : warnings.joined(separator: " "),
                     notice: "Connexion directe à VIA Rail. Âge des prévisions inconnu.",

@@ -51,10 +51,9 @@ struct TrainRow: View {
                 .fixedSize(horizontal: false, vertical: true)
             if let last = journey.stops.last {
                 TimelineView(.periodic(from: .now, by: 30)) { context in
-                    AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4)) : AnyLayout(HStackLayout(alignment: .firstTextBaseline))) {
-                        Text("Départ \(railTime(journey.departure))")
-                        if !typeSize.isAccessibilitySize { Spacer(minLength: 8) }
-                        Text("\(JourneyDisplay.isEstimated(last, in: journey, now: context.date) ? "Estimée" : "Prévue") \(railTime(JourneyDisplay.arrival(last, in: journey, now: context.date), zone: last.timeZone))")
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Départ \(railTime(journey.departure, zone: journey.stops.first?.timeZone ?? "America/Toronto", includeDate: true))")
+                        Text("\(JourneyDisplay.isEstimated(last, in: journey, now: context.date) ? "Estimée" : "Prévue") \(railTime(JourneyDisplay.arrival(last, in: journey, now: context.date), zone: last.timeZone, includeDate: true))")
                     }.font(.caption).monospacedDigit().foregroundStyle(Color("SecondaryText"))
                 }
             }

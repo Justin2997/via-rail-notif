@@ -17,6 +17,7 @@ public struct Journey: Codable, Identifiable, Equatable, Sendable {
     public var destination: String
     public var departure: Date
     public var stops: [StationStop]
+    public var untimedStops: [UntimedStop]? = nil
     public var position: Position?
     public var positionObservedAt: Date?
     public var observedAt: Date?
@@ -40,6 +41,12 @@ public struct Journey: Codable, Identifiable, Equatable, Sendable {
 public struct Position: Codable, Equatable, Sendable {
     public var latitude: Double
     public var longitude: Double
+}
+
+public struct UntimedStop: Codable, Identifiable, Equatable, Sendable {
+    public var id: String
+    public var code: String
+    public var name: String
 }
 
 public struct StationStop: Codable, Identifiable, Equatable, Sendable {

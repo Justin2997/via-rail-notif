@@ -11,13 +11,19 @@ import Testing
 @MainActor final class FakeDriver: AlarmDriver {
     var values: [DeviceAlarm] = []
     var failSchedule = false
+    var throwAfterSchedule = false
     var failCancel = false
     var authorized = true
-    func authorize() async throws { if !authorized { throw WakeError.denied } }
+    var authorizationDelay: Duration?
+    func authorize() async throws {
+        if let authorizationDelay { try await Task.sleep(for: authorizationDelay) }
+        if !authorized { throw WakeError.denied }
+    }
     func alarms() throws -> [DeviceAlarm] { values }
     func schedule(id: UUID, date: Date, station: String) async throws {
         if failSchedule { throw WakeError.unverified }
         values.append(DeviceAlarm(id: id, date: date))
+        if throwAfterSchedule { throw WakeError.unverified }
     }
     func cancel(id: UUID) throws {
         if failCancel { throw WakeError.unverified }
@@ -76,6 +82,23 @@ import Testing
         #expect(controller.session?.pendingID == nil)
     }
 
+    @Test func multidayArrivalSchedulesAndReschedulesAnAbsoluteInstant() async throws {
+        let driver = FakeDriver(), store = MemoryStore()
+        let controller = AlarmController(driver: driver, persistence: store)
+        var trip = Journey.demo(now: now)
+        trip.id = "via:1:long-distance"
+        trip.stops[0].timeZone = "America/Vancouver"
+        trip.stops[0].plannedArrival = now.addingTimeInterval(4 * 86400)
+        trip.stops[0].arrival = trip.stops[0].plannedArrival
+        await controller.activate(journey: trip, stopID: "2", leadMinutes: 30, now: now)
+        #expect(driver.values.first?.date == now.addingTimeInterval(4 * 86400 - 1800))
+        trip.observedAt = now.addingTimeInterval(1)
+        trip.stops[0].arrival.addTimeInterval(3600)
+        await controller.apply(journey: trip, now: now)
+        #expect(driver.values.count == 1)
+        #expect(driver.values.first?.date == now.addingTimeInterval(4 * 86400 + 1800))
+    }
+
     @Test func failedReplacementPreservesPreviousAlarm() async throws {
         let driver = FakeDriver(), store = MemoryStore()
         let controller = AlarmController(driver: driver, persistence: store)
@@ -88,6 +111,60 @@ import Testing
         await controller.apply(journey: trip, now: now)
         #expect(driver.values == original)
         #expect(controller.error != nil)
+    }
+
+    @Test func failedChangeOfTrainRestoresTheEntirePreviousSession() async throws {
+        let driver = FakeDriver(), store = MemoryStore()
+        let controller = AlarmController(driver: driver, persistence: store)
+        let original = Journey.demo(now: now)
+        await controller.activate(journey: original, stopID: "2", leadMinutes: 15, now: now)
+        let old = try #require(controller.session)
+        var replacement = original
+        replacement.id = "another-train"
+        replacement.stops[0].name = "Ottawa"
+        replacement.stops[0].arrival.addTimeInterval(3600)
+        driver.failSchedule = true
+        await controller.activate(journey: replacement, stopID: "2", leadMinutes: 30, now: now)
+        #expect(controller.error != nil)
+        #expect(controller.session?.journey == original)
+        #expect(controller.session?.leadMinutes == 15)
+        #expect(controller.session?.generation == old.generation)
+        #expect(controller.session?.pendingID == nil)
+        let restored = AlarmController(driver: driver, persistence: store)
+        restored.reconcile()
+        #expect(restored.session?.journey == original)
+        #expect(driver.values.count == 1)
+    }
+
+    @Test func driverErrorAfterInstallationStillReconcilesTheActualAlarm() async throws {
+        let driver = FakeDriver(), store = MemoryStore()
+        let controller = AlarmController(driver: driver, persistence: store)
+        driver.throwAfterSchedule = true
+        await controller.activate(journey: Journey.demo(now: now), stopID: "2", leadMinutes: 15, now: now)
+        #expect(controller.error == nil)
+        #expect(controller.session?.primaryID == driver.values.first?.id)
+        #expect(controller.session?.pendingID == nil)
+        #expect(driver.values.count == 1)
+    }
+
+    @Test func interruptedReplacementNeverSilencesAnAlreadyRingingAlarm() async throws {
+        let driver = FakeDriver(), store = MemoryStore()
+        let controller = AlarmController(driver: driver, persistence: store)
+        await controller.activate(journey: Journey.demo(now: now), stopID: "2", leadMinutes: 15, now: now)
+        var saved = try #require(store.value)
+        let pending = UUID()
+        saved.pendingID = pending
+        saved.alarmIDs.append(pending)
+        store.value = saved
+        driver.values[0].ringing = true
+        driver.values.append(DeviceAlarm(id: pending, date: saved.desiredDate))
+        let restored = AlarmController(driver: driver, persistence: store)
+        restored.reconcile()
+        #expect(driver.values.count == 2)
+        #expect(driver.values.contains { $0.ringing })
+        #expect(restored.session?.active == false)
+        restored.stop()
+        #expect(driver.values.isEmpty)
     }
 
     @Test func interruptedCleanupReconcilesOnRelaunch() async throws {
@@ -137,6 +214,21 @@ import Testing
         #expect(driver.values.count == 1)
         #expect(driver.values[0].ringing)
         #expect(controller.session?.active == false)
+    }
+
+    @Test func duplicateAlarmsAreNeverLabelledAsOneVerifiedSchedule() async throws {
+        let driver = FakeDriver(), store = MemoryStore()
+        let controller = AlarmController(driver: driver, persistence: store)
+        await controller.activate(journey: Journey.demo(now: now), stopID: "2", leadMinutes: 15, now: now)
+        var saved = try #require(store.value)
+        let duplicate = UUID()
+        saved.alarmIDs.append(duplicate)
+        store.value = saved
+        driver.values.append(DeviceAlarm(id: duplicate, date: saved.desiredDate))
+        let restored = AlarmController(driver: driver, persistence: store)
+        restored.reconcile()
+        #expect(restored.observed.count == 2)
+        #expect(restored.status != "Programmation vérifiée")
     }
 
     @Test func absentAlarmDoesNotReappearFromUpdate() async {
@@ -189,6 +281,19 @@ import Testing
         incoming.observedAt = now.addingTimeInterval(1)
         incoming.stops[0].code = "MTRL"
         #expect(!WakePolicy.acceptUpdate(previous: previous, incoming: incoming, stopID: "2", now: now))
+    }
+
+    @Test func authorizationDelayCannotScheduleAnUnconfirmedPastAlarm() async {
+        let driver = FakeDriver(), store = MemoryStore()
+        let controller = AlarmController(driver: driver, persistence: store)
+        let actualNow = Date.now
+        var trip = Journey.demo(now: actualNow)
+        trip.stops[0].arrival = actualNow.addingTimeInterval(60.2)
+        driver.authorizationDelay = .milliseconds(400)
+        await controller.activate(journey: trip, stopID: "2", leadMinutes: 1, now: actualNow)
+        #expect(driver.values.isEmpty)
+        #expect(controller.session == nil)
+        #expect(controller.error == WakeError.immediateConfirmation.errorDescription)
     }
 
     @Test func staleReceiptCannotArm() async {

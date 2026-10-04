@@ -10,8 +10,8 @@ settings:
   base:
     SWIFT_VERSION: '6.0'
     TARGETED_DEVICE_FAMILY: '1'
-    MARKETING_VERSION: '0.3.2'
-    CURRENT_PROJECT_VERSION: '5'
+    MARKETING_VERSION: '1.0'
+    CURRENT_PROJECT_VERSION: '9'
 targets:
   ReveilVIA:
     type: application
@@ -34,6 +34,9 @@ targets:
       path: App/Info.plist
       properties:
         NSAlarmKitUsageDescription: Réveil VIA programme une alarme avant l’arrivée du train à la gare choisie.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ITSAppUsesNonExemptEncryption: false
         NSSupportsLiveActivities: true
         UIBackgroundModes: [fetch]
         BGTaskSchedulerPermittedIdentifiers: [ca.codingpanda.reveilvia.prototype.refresh]
@@ -51,6 +54,8 @@ targets:
     info:
       path: LiveActivity/Info.plist
       properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDisplayName: Réveil VIA
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension

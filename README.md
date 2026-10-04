@@ -1,8 +1,8 @@
-# Réveil VIA — prototype personnel
+# Réveil VIA — bêta iOS
 
-Première tranche exécutable : app SwiftUI iOS 26, alarme locale AlarmKit, choix du train/de la gare/de l’avance, connexion directe aux sources VIA et rapprochement des horaires GTFS avec le suivi VIA sur l’iPhone. « Temps réel » est l’unique écran principal. La configuration du réveil s’ouvre dans une fenêtre depuis le dashboard. Les données VIA réelles sont chargées dès l’ouverture; aucun trajet de démonstration n’est proposé.
+Application compagnon indépendante : app SwiftUI iOS 26, alarme locale AlarmKit, choix du train/de la gare/de l’avance, connexion directe aux sources VIA et rapprochement des horaires GTFS avec le suivi VIA sur l’iPhone. « Réveil VIA » est l’unique écran principal : l’heure réellement enregistrée est mise en avant, avec la gare cible et un résumé du trajet. La configuration du réveil s’ouvre dans une fenêtre depuis le dashboard. Les données VIA réelles sont chargées dès l’ouverture; aucun trajet de démonstration n’est proposé.
 
-L’app ajuste une alarme vers une heure antérieure ou postérieure lorsqu’une nouvelle estimation exploitable est chargée dans l’app. **Le dashboard est actualisé environ chaque minute lorsque l’app est au premier plan, même sans réveil actif. En veille, les actualisations sont opportunistes et décidées par iOS.** Une Activité en direct affiche le réveil enregistré et signale le suivi périmé. Aucune sonnerie sur iPhone physique ni précision de trente secondes n’est démontrée. L’objectif produit adaptatif reste inchangé; ce prototype sert à établir la première preuve locale.
+L’app ajuste une alarme vers une heure antérieure ou postérieure lorsqu’une nouvelle estimation exploitable est chargée dans l’app. **Le dashboard est actualisé environ chaque minute lorsque l’app est au premier plan, même sans réveil actif. En veille, les actualisations sont opportunistes et décidées par iOS.** Une Activité en direct affiche le réveil enregistré et signale le suivi périmé. Aucune sonnerie sur iPhone physique ni précision de trente secondes n’est démontrée. La distribution visée est une première bêta TestFlight; voir [la préparation de distribution](docs/TESTFLIGHT_RELEASE.md).
 
 ## Application autonome
 
@@ -20,23 +20,23 @@ Ouvrir `ios/ReveilVIA.xcodeproj` dans Xcode 26.1 ou ultérieur, choisir le schem
 xcodegen generate --spec ios/project.yml
 ```
 
-1. « Temps réel » affiche uniquement le train associé au réveil actif (un seul réveil à la fois dans ce prototype), avec sa gare cible et la date de réception. Sans réveil, un bouton invite à en configurer un. Le train disparaît après l’arrêt confirmé. Une estimation périmée cède la place à l’horaire prévu explicitement identifié.
-2. « Configurer un réveil » ouvre une fenêtre avec le catalogue complet, la recherche et le choix de date pour sélectionner un vrai train, la gare et l’avance. Une simple sélection sans activation ne fait pas apparaître le train dans « Temps réel ». « Gérer le réveil » ouvre la même fenêtre depuis le train suivi. Elle se ferme après une activation ou un arrêt confirmé, et reste ouverte en cas d’erreur.
+1. « Réveil VIA » affiche uniquement le train associé au réveil actif (un seul réveil à la fois), avec sa gare cible et la date de réception. Sans réveil, un bouton invite à en configurer un. Le train disparaît après l’arrêt confirmé. Une estimation périmée cède la place à l’horaire prévu explicitement identifié.
+2. « Configurer un réveil » ouvre une fenêtre avec le catalogue complet, la recherche et le choix de date pour sélectionner un vrai train, la gare et l’avance. Une simple sélection sans activation ne fait pas apparaître le train sur le dashboard. « Gérer le réveil » ouvre la même fenêtre depuis le train suivi. Elle se ferme après une activation ou un arrêt confirmé, et reste ouverte en cas d’erreur.
 3. « Activer le réveil » demande l’autorisation AlarmKit puis relit les alarmes enregistrées. L’heure souhaitée est distincte de l’heure effectivement enregistrée. Choisir un trajet ne programme aucune alarme et ne remplace pas une alarme existante.
 4. Sur un iPhone physique, sélectionner son équipe de signature Xcode. Aucun Mac serveur ni réglage d’adresse réseau n’est nécessaire une fois l’app installée.
-5. Une Activité en direct démarre avec un réveil enregistré situé dans les sept prochaines heures, si iOS l’autorise. Plus tôt, son démarrage est différé jusqu’à une ouverture de l’app dans cette fenêtre. Elle affiche l’heure réellement enregistrée, pas une programmation seulement souhaitée.
+5. Une Activité en direct démarre dès l’ouverture de l’app avec un réveil enregistré futur, si iOS l’autorise, y compris pour les trajets de plusieurs jours. iOS limite sa durée active à huit heures; une réouverture de l’app peut démarrer une nouvelle carte après expiration. Elle affiche l’heure réellement enregistrée, pas une programmation seulement souhaitée. Si les autorisations sont désactivées ou si le démarrage échoue, le dashboard l’indique.
 
 Le remplacement persiste son intention, programme une nouvelle alarme, la relit puis annule l’ancienne. Une interruption peut laisser deux alarmes : l’app l’affiche et réconcilie au relancement. L’arrêt est persisté avant annulation, pour qu’une mise à jour tardive ne réactive pas le réveil. Une alarme absente, déjà échue ou en sonnerie ne doit pas être recréée automatiquement.
 
 ## Données et limites
 
 - L’identité inclut numéro, date, origine, destination et départ planifié. Calendriers et exceptions GTFS sont appliqués; l’horizon du flux est respecté.
-- Les listes d’arrêts et les horaires planifiés doivent concorder. Un conflit ou une ambiguïté bloque le réveil pour tout le voyage; aucune variante de calendrier n’est choisie arbitrairement.
+- Les arrêts publiés doivent former un sous-ensemble unique et ordonné de la desserte GTFS, et les horaires planifiés doivent concorder. VIA peut publier seulement une fenêtre d’arrêts pour un trajet longue distance; les gares restantes gardent leur horaire prévu. Un conflit ou une ambiguïté bloque le réveil pour tout le voyage; aucune variante de calendrier n’est choisie arbitrairement.
 - `arrival.estimated` est distinct du départ. Les décalages ISO doivent correspondre au fuseau; les heures GTFS utilisent midi local moins douze heures réelles et acceptent les valeurs supérieures à 24 h.
-- Les seuils de prototype sont 120 secondes pour la réception et 300 secondes pour `poll`, avec une tolérance d’horloge de 30 secondes. **`poll` ne date pas la prévision** : l’âge de l’ETA reste inconnu.
+- Les seuils de fraîcheur sont 120 secondes pour la réception et 300 secondes pour `poll`, avec une tolérance d’horloge de 30 secondes. **`poll` ne date pas la prévision** : l’âge de l’ETA reste inconnu.
 - Si aucune estimation exploitable n’existe lors de la création, l’horaire planifié est explicitement affiché. Une mise à jour dégradée ne déplace pas une alarme existante.
 - Une estimation dépassée affiche « Arrivée à confirmer ». Aucun passage de gare ni annulation n’est inféré de l’heure ou de la disparition du train.
-- Les trajets sont actuellement limités aux numéros 20–99 et aux données couvertes par le GTFS. Ce filtre constitue un périmètre de prototype, pas une qualification commerciale du corridor.
+- Tous les trains numérotés publiés dans le GTFS sont inclus, y compris les numéros composés. Les trajets de plusieurs jours restent consultables avec leur date de départ originale. Les heures GTFS utilisent le fuseau de l’agence; l’interface affiche la date et le fuseau local de chaque gare. Les transferts non numérotés ne sont pas des trains sélectionnables.
 - Source des horaires : VIA Rail Canada inc., [Licence du gouvernement ouvert – Canada](https://open.canada.ca/fr/licence-du-gouvernement-ouvert-canada). Cette licence n’est pas attribuée au [suivi JSON](https://tsimobile.viarail.ca/data/allData.json); les conditions de collecte, cache et redistribution restent à établir avant une bêta ou un service hébergé.
 
 ## Vérifications
@@ -57,8 +57,10 @@ La CI exécute les tests Swift hors réseau et compile l’app pour simulateur. 
 
 La décompression utilise ZIPFoundation, version verrouillée par SwiftPM; sa licence MIT est incluse dans `ios/App/ZIPFoundation-LICENSE.txt`. Les anciennes dépendances Python, le serveur HTTP et la configuration Docker ont été retirés.
 
-## Prochaine preuve
+## Validation sur appareil
 
-La version 0.3.2 (5), antérieure à cette PR, a été signée, installée et lancée sur l’iPhone 16 Pro. Le build de cette PR n’a pas pu être installé faute de compte et de profils de signature Xcode. Il reste à mesurer programmation, relecture et sonnerie séparément, y compris silencieux/Sommeil, réseau perdu, fermeture forcée et redémarrage. Mesurer ensuite les créneaux réels accordés à BGAppRefreshTask et la durée de l’Activité en direct sur appareil. Une adaptation garantie à trente secondes téléphone verrouillé n’est pas démontrée.
+Des builds de développement ont été signés, installés et lancés sur l’iPhone 16 Pro pendant cette itération. La version source actuelle est 1.0 (9), signée, installée et lancée sur l’iPhone après les corrections et l’ajout de la carte de progression sur l’écran verrouillé. L’archive 1.0 (6) est antérieure aux corrections. Voir [l’audit du code](docs/CODE_AUDIT.md). Installation et lancement ne prouvent pas la sonnerie : il reste à mesurer programmation, relecture et sonnerie séparément, y compris silencieux/Sommeil, réseau perdu, fermeture forcée et redémarrage. Les actualisations en arrière-plan sont opportunistes; une adaptation garantie à trente secondes téléphone verrouillé n’est pas démontrée.
+
+La page Informations donne accès à la confidentialité, aux limites du suivi et aux sources. Le bundle identifier historique est conservé pour préserver les mises à jour et le réveil existant; le suffixe technique `.prototype` ne s’affiche pas aux voyageurs.
 
 Références : [exemple AlarmKit Apple](https://developer.apple.com/documentation/alarmkit/scheduling-an-alarm-with-alarmkit), [dates GTFS](https://gtfs.org/documentation/schedule/reference/), [images CI GitHub](https://github.com/actions/runner-images).
