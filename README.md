@@ -8,7 +8,7 @@ L’app ajuste une alarme vers une heure antérieure ou postérieure lorsqu’un
 
 Code Swift/SwiftUI, iOS 26 minimum, Xcode 26.1+ et Swift 6.2. Pour commencer, cloner le dépôt, ouvrir `ios/ReveilVIA.xcodeproj` et choisir le scheme `ReveilVIA`. Les tests et la compilation pour simulateur ne nécessitent aucune clé ni équipe Apple. Pour un appareil physique, choisir votre propre équipe pour l’app et l’extension.
 
-Les contributions en français ou en anglais sont bienvenues : [guide de contribution](CONTRIBUTING.md), [signalement de sécurité](SECURITY.md) et [revue avant publication](docs/OPEN_SOURCE_READINESS.md). Les documents de validation antérieurs sont des relevés historiques; ils ne constituent pas une preuve de validation de chaque nouvelle version.
+Les contributions en français ou en anglais sont bienvenues : [guide de contribution](CONTRIBUTING.md) et [signalement de sécurité](SECURITY.md). Les documents de validation antérieurs sont des relevés historiques; ils ne constituent pas une preuve de validation de chaque nouvelle version.
 
 La licence du code reste à choisir par le propriétaire avant de présenter le projet comme librement réutilisable. ZIPFoundation possède sa propre licence MIT. Les données et marques VIA ne sont pas couvertes par une éventuelle licence du code; les illustrations intégrées et leurs origines sont décrites dans [les sources visuelles](docs/VIA_DESIGN_ASSETS.md).
 
