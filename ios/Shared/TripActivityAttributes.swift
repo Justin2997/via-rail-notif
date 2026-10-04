@@ -9,6 +9,8 @@ struct TripActivityAttributes: ActivityAttributes {
         var estimated: Bool
         var verifiedAt: Date
         var receivedAt: Date?
+        var timeZone: String? = nil
+        var departure: Date? = nil
         var warning: Bool
     }
     var generation: UUID

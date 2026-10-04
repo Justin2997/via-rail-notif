@@ -83,6 +83,7 @@ public struct WakeSession: Codable, Sendable {
             status = observed.contains(where: { $0.ringing }) ? "Sonnerie en cours" :
                 "Réveil terminé — réactivation nécessaire"
         } else if let pending = current.pendingID,
+                  !observed.contains(where: { $0.ringing }),
                   observed.contains(where: { $0.id == pending && !$0.ringing &&
                       abs($0.date.timeIntervalSince(current.desiredDate)) < 1 }) {
             // A crash between scheduling and persistence can be recovered from the OS.
@@ -109,8 +110,14 @@ public struct WakeSession: Codable, Sendable {
         } else {
             current.verifiedAt = .now
             try persist(current)
-            status = current.pendingID == nil ? "Programmation vérifiée" :
-                "Modification non appliquée — ancienne alarme conservée"
+            if observed.count > 1 {
+                status = "Plusieurs alarmes — arrêt ou modification nécessaire"
+            } else if current.pendingID == nil,
+                      abs(observed[0].date.timeIntervalSince(current.desiredDate)) < 1 {
+                status = "Programmation vérifiée"
+            } else {
+                status = "Modification non appliquée — heure enregistrée conservée"
+            }
         }
     }
 
@@ -131,10 +138,12 @@ public struct WakeSession: Codable, Sendable {
             let desired = try WakePolicy.desiredDate(arrival: stop.arrival, leadMinutes: leadMinutes)
             guard desired > now || immediate else { throw WakeError.immediateConfirmation }
             try await driver.authorize()
+            let schedulingNow = max(now, .now)
+            guard desired > schedulingNow || immediate else { throw WakeError.immediateConfirmation }
             let previousIDs = session?.alarmIDs ?? []
             let current = WakeSession(generation: UUID(), journey: journey, stopID: stopID,
                                       leadMinutes: leadMinutes,
-                                      desiredDate: desired > now ? desired : max(now, .now).addingTimeInterval(5),
+                                      desiredDate: desired > schedulingNow ? desired : schedulingNow.addingTimeInterval(5),
                                       active: true, alarmIDs: previousIDs)
             try await replace(current)
         } catch {
@@ -144,14 +153,26 @@ public struct WakeSession: Codable, Sendable {
     }
 
     private func replace(_ value: WakeSession) async throws {
+        let previous = session
         var current = value
         let newID = UUID()
         current.pendingID = newID
         current.alarmIDs.append(newID)
         // Persist intent before OS mutation, and keep the old alarm until the new one is read back.
         try persist(current)
-        try await driver.schedule(id: newID, date: current.desiredDate,
-                                  station: current.stop?.name ?? "Gare suivie")
+        do {
+            try await driver.schedule(id: newID, date: current.desiredDate,
+                                      station: current.stop?.name ?? "Gare suivie")
+        } catch {
+            // A driver can throw after installing the alarm. Roll back only when
+            // the OS confirms that the replacement was never installed.
+            let schedulingError = error
+            let installed = try driver.alarms()
+            if !installed.contains(where: { $0.id == newID }) {
+                if let previous { try persist(previous) }
+                throw schedulingError
+            }
+        }
         try refresh()
         guard session?.primaryID == newID, session?.pendingID == nil else {
             throw WakeError.unverified

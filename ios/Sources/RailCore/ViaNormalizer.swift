@@ -25,7 +25,41 @@ struct LiveTrain: Codable, Sendable {
 }
 
 extension GTFSSchedule {
-    func journeys(day: String, live: [String: LiveTrain], receivedAt: Date?, now: Date) throws -> [Journey] {
+    /// Browse a travel day, preserving the departure-day identity of ongoing trips.
+    func journeysAvailable(on day: String, live: [String: LiveTrain], receivedAt: Date?, now: Date) throws -> [Journey] {
+        let selected = try ViaTime.day(day)
+        // Look back as far as the longest published GTFS clock, not a train-number filter.
+        let hours = times.values.flatMap { $0 }.compactMap { Int(($0["arrival_time"] ?? "").split(separator: ":").first ?? "") }
+        let lookback = (hours.filter { (0...240).contains($0) }.max() ?? 0) / 24 + 1
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = .gmt
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .gmt
+        formatter.dateFormat = "yyyy-MM-dd"
+        var result = try journeys(day: day, live: live, receivedAt: receivedAt, now: now)
+        for offset in 1...lookback {
+            let previous = formatter.string(from: calendar.date(byAdding: .day, value: -offset, to: selected)!)
+            let compact = previous.replacingOccurrences(of: "-", with: "")
+            guard start <= compact && compact <= end else { continue }
+            let candidates = try journeys(day: previous, live: live, receivedAt: receivedAt, now: now, minimumHour: (offset - 1) * 24)
+            result += candidates.filter { journey in
+                guard let last = journey.stops.last else { return false }
+                // Calendar dates at the destination include transcontinental arrivals
+                // even when local midnight differs from the agency's midnight.
+                formatter.timeZone = TimeZone(identifier: last.timeZone)
+                let arrivalDay = formatter.string(from: max(last.plannedArrival, last.arrival))
+                formatter.timeZone = .gmt
+                return arrivalDay >= day
+            }
+        }
+        return result.sorted {
+            if $0.number != $1.number { return $0.number.compare($1.number, options: .numeric) == .orderedAscending }
+            return ($0.departure, $0.id) < ($1.departure, $1.id)
+        }
+    }
+
+    func journeys(day: String, live: [String: LiveTrain], receivedAt: Date?, now: Date, minimumHour: Int = 0) throws -> [Journey] {
         _ = try ViaTime.day(day)
         let compact = day.replacingOccurrences(of: "-", with: "")
         guard start <= compact && compact <= end else { throw ViaDataError.outsideHorizon }
@@ -35,8 +69,9 @@ extension GTFSSchedule {
         for trip in activeTrips {
             // Optional in GTFS: VIA includes an unnumbered Dorval transfer.
             guard let number = trip["trip_short_name"],
-                  let numeric = Int(number), (20...99).contains(numeric),
+                  number.range(of: #"^\d+(?:-\d+)*$"#, options: .regularExpression) != nil,
                   let rows = times[try trip.required("trip_id")], rows.count > 1 else { continue }
+            if minimumHour > 0, let hour = rows.last?["arrival_time"]?.split(separator: ":").first.flatMap({ Int($0) }), hour < minimumHour { continue }
             guard let route = routes[try trip.required("route_id")],
                   let agency = agencies[try route.required("agency_id")] else {
                 throw ViaDataError.invalid("agence ou route GTFS")
@@ -50,7 +85,7 @@ extension GTFSSchedule {
                 issues.append("STOP_CODE_AMBIGUOUS")
             }
             let candidates = live.filter { key, train in
-                key.range(of: #"^\d+(?: \(\d{2}-\d{2}\))?$"#, options: .regularExpression) != nil &&
+                key.range(of: #"^\d+(?:-\d+)*(?: \(\d{2}-\d{2}\))?$"#, options: .regularExpression) != nil &&
                 key.split(separator: " ").first.map(String.init) == number && train.instance == day
             }
             if candidates.count > 1 { issues.append("AMBIGUOUS_LIVE_TRIP") }
@@ -61,25 +96,50 @@ extension GTFSSchedule {
             let train = pair?.value
             issues += train?.issues ?? []
             let liveStops = train?.times ?? []
-            if train != nil && liveStops.map(\.code) != codes { issues.append("SERVICE_CONFLICT") }
+            // VIA publishes windows of stops for long-distance trips. Match by code,
+            // accepting only a unique, ordered subset of the scheduled service.
+            let liveCodes = liveStops.map(\.code)
+            let indices = liveCodes.compactMap { codes.firstIndex(of: $0) }
+            if Set(liveCodes).count != liveCodes.count || indices.count != liveCodes.count ||
+                zip(indices, indices.dropFirst()).contains(where: { $0 >= $1 }) {
+                issues.append("SERVICE_CONFLICT")
+            }
+            let liveByCode = Dictionary(liveStops.map { ($0.code, $0) }, uniquingKeysWith: { first, _ in first })
             let observation = ViaTime.instant(train?.poll)
             let usable = observation.map { (-30...300).contains(now.timeIntervalSince($0)) } == true &&
                 receivedAt.map { (-30...120).contains(now.timeIntervalSince($0)) } == true
             var stops: [StationStop] = []
+            var untimedStops: [UntimedStop] = []
+            var previousDeparture: Date?
             for (index, row) in rows.enumerated() {
                 let station = stations[index]
-                let planned = try ViaTime.gtfs(day: day, clock: row.required("arrival_time"), zone: zone)
-                let departure = try ViaTime.gtfs(day: day, clock: row.required("departure_time"), zone: zone)
-                let current = liveStops.count == rows.count ? liveStops[index] : nil
+                guard let arrivalClock = row["arrival_time"], !arrivalClock.isEmpty,
+                      let departureClock = row["departure_time"], !departureClock.isEmpty else {
+                    untimedStops.append(UntimedStop(id: try row.required("stop_sequence"),
+                                                   code: codes[index], name: try station.required("stop_name")))
+                    continue
+                }
+                let planned = try ViaTime.gtfs(day: day, clock: arrivalClock, zone: zone)
+                let departure = try ViaTime.gtfs(day: day, clock: departureClock, zone: zone)
+                if departure < planned || previousDeparture.map({ planned < $0 }) == true {
+                    issues.append("TEMPORAL_CONFLICT")
+                }
+                previousDeparture = departure
+                let current = liveByCode[codes[index]]
                 let stationZone = station["stop_timezone"].flatMap { $0.isEmpty ? nil : $0 } ?? zone
-                let liveZone = current?.tz ?? stationZone
+                guard TimeZone(identifier: stationZone) != nil else {
+                    throw ViaDataError.invalid("fuseau de gare")
+                }
+                // Offset validation uses the station's published GTFS zone;
+                // upstream metadata cannot redefine where this station is.
+                let liveZone = stationZone
                 let estimate = ViaTime.instant(current?.arrival?.estimated, zone: liveZone)
                 let departureEstimate = ViaTime.instant(current?.departure?.estimated, zone: liveZone)
                 if let current {
                     for (raw, expected) in [(current.arrival?.scheduled, planned), (current.departure?.scheduled, departure)] {
-                        if let raw, ViaTime.instant(raw, zone: liveZone) != expected { issues.append("SCHEDULE_CONFLICT") }
+                        if let raw, !ViaTime.matchesSchedule(raw, expected: expected, zone: liveZone) { issues.append("SCHEDULE_CONFLICT") }
                     }
-                    if index == 0 && ViaTime.instant(current.departure?.scheduled, zone: liveZone) != departure {
+                    if index == 0 && !ViaTime.matchesSchedule(current.departure?.scheduled, expected: departure, zone: liveZone) {
                         issues.append("IDENTITY_UNRESOLVED")
                     }
                     if let estimate, let departureEstimate, departureEstimate < estimate {
@@ -93,6 +153,8 @@ extension GTFSSchedule {
                                          arrival: source == "estimated" ? estimate! : planned,
                                          source: source, canArm: index > 0, issues: []))
             }
+            // A trip needs published endpoint times to offer an arrival alarm.
+            guard stops.first?.code == codes.first, stops.last?.code == codes.last else { continue }
             issues = Set(issues).sorted()
             for index in stops.indices {
                 stops[index].issues = issues
@@ -108,12 +170,15 @@ extension GTFSSchedule {
             result.append(Journey(id: id, number: number, serviceDate: day,
                                   origin: try stations[0].required("stop_name"),
                                   destination: try stations[stations.count - 1].required("stop_name"),
-                                  departure: departure, stops: stops, position: position,
+                                  departure: departure, stops: stops, untimedStops: untimedStops, position: position,
                                   positionObservedAt: position == nil ? nil : observation,
                                   observedAt: observation, receivedAt: receivedAt,
                                   issues: issues, liveAvailable: train != nil))
         }
-        return result.sorted { (Int($0.number)!, $0.departure, $0.id) < (Int($1.number)!, $1.departure, $1.id) }
+        return result.sorted {
+            if $0.number != $1.number { return $0.number.compare($1.number, options: .numeric) == .orderedAscending }
+            return ($0.departure, $0.id) < ($1.departure, $1.id)
+        }
     }
 }
 

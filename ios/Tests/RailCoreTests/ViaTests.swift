@@ -42,11 +42,13 @@ private enum Fixture {
 private actor FakeVIA: ViaTransport {
     var calls: [ViaSource] = []
     var offline = false
+    let delay: Duration?
     let zip: Data
     var live = Fixture.json
-    init() throws { zip = try Fixture.zip() }
+    init(delay: Duration? = nil) throws { self.delay = delay; zip = try Fixture.zip() }
     func download(_ source: ViaSource) async throws -> Data {
         calls.append(source)
+        if let delay { try await Task.sleep(for: delay) }
         if offline { throw URLError(.notConnectedToInternet) }
         return source == .schedule ? zip : live
     }
@@ -74,6 +76,13 @@ private actor FakeVIA: ViaTransport {
         #expect(trip.stops.last?.plannedArrival == ViaTime.instant("2026-09-22T15:00:00Z"))
         #expect(trip.stops.last?.canArm == true)
         #expect(trip.stops.first?.canArm == false)
+    }
+
+    @Test(arguments: ["08:bad:00:00", "08::00:00", "241:00:00", "999999999999:00:00", "08:00:00:00", "08:60:00"])
+    func malformedGTFSClocksCannotBeReinterpreted(_ clock: String) {
+        #expect(throws: (any Error).self) {
+            try ViaTime.gtfs(day: Fixture.day, clock: clock, zone: "America/Toronto")
+        }
     }
 
     @Test func malformedZIPFails() {
@@ -131,6 +140,121 @@ private actor FakeVIA: ViaTransport {
         #expect(try Fixture.journey(tables: tables).number == "20")
     }
 
+    @Test(arguments: ["1", "2", "14", "15", "185", "693", "97-64", "98-63"])
+    func allNumberedServicesAreAvailable(_ number: String) throws {
+        var tables = try Fixture.tables
+        tables["trips"]![0]["trip_short_name"] = number
+        #expect(try Fixture.journey(tables: tables, live: [:]).number == number)
+    }
+
+    @Test func partialLiveWindowMatchesByCodeAndLeavesUnpublishedStopsPlanned() throws {
+        var live = try Fixture.live
+        live["20"]!.times.removeFirst()
+        let journey = try Fixture.journey(live: live)
+        #expect(journey.issues.isEmpty)
+        #expect(journey.stops.first?.source == "planned")
+        #expect(journey.stops.last?.arrival == ViaTime.instant("2026-09-22T15:15:00Z"))
+        #expect(journey.stops.last?.canArm == true)
+        live["20"]!.times.append(live["20"]!.times[0])
+        #expect(try Fixture.journey(live: live).issues.contains("SERVICE_CONFLICT"))
+        live = try Fixture.live
+        live["20"]!.times.reverse()
+        #expect(try Fixture.journey(live: live).issues.contains("SERVICE_CONFLICT"))
+    }
+
+    @Test func malformedInactiveTripCannotExpandTheTravelDayLookback() throws {
+        var tables = try Fixture.tables
+        tables["trips"]!.append(["trip_id": "inactive", "trip_short_name": "999", "service_id": "inactive", "route_id": "r"])
+        tables["stop_times"]!.append(["trip_id": "inactive", "stop_id": "a", "stop_sequence": "1", "arrival_time": "08:00:00", "departure_time": "08:00:00"])
+        tables["stop_times"]!.append(["trip_id": "inactive", "stop_id": "b", "stop_sequence": "2", "arrival_time": "999999999999:00:00", "departure_time": "999999999999:00:00"])
+        let schedule = try GTFSSchedule(tables: tables)
+        let trips = try schedule.journeysAvailable(on: Fixture.day, live: [:], receivedAt: nil, now: Fixture.now)
+        #expect(trips.count == 1)
+        #expect(trips.first?.number == "20")
+    }
+
+    @Test func backwardsPlannedTimesBlockTheJourney() throws {
+        var tables = try Fixture.tables
+        tables["stop_times"]![1]["arrival_time"] = "07:00:00"
+        tables["stop_times"]![1]["departure_time"] = "07:00:00"
+        let trip = try Fixture.journey(tables: tables, live: [:])
+        #expect(trip.issues.contains("TEMPORAL_CONFLICT"))
+        #expect(trip.stops.allSatisfy { !$0.canArm })
+    }
+
+    @Test func upstreamZoneCannotOverrideTheStationZone() throws {
+        var live = try Fixture.live
+        live["20"]!.times[1].tz = "America/Winnipeg"
+        live["20"]!.times[1].arrival?.scheduled = "2026-09-22T11:00:00-05:00"
+        live["20"]!.times[1].arrival?.estimated = "2026-09-22T11:15:00-05:00"
+        let trip = try Fixture.journey(live: live)
+        #expect(trip.issues.contains("SCHEDULE_CONFLICT"))
+        #expect(trip.stops.last?.estimatedArrival == nil)
+        #expect(trip.stops.last?.canArm == false)
+    }
+
+    @Test func savedJourneysFromPreviousBuildStillDecode() throws {
+        let original = try Fixture.journey()
+        let bytes = try JSONEncoder().encode(original)
+        var json = try #require(JSONSerialization.jsonObject(with: bytes) as? [String: Any])
+        json.removeValue(forKey: "untimedStops")
+        let restored = try JSONDecoder().decode(Journey.self, from: JSONSerialization.data(withJSONObject: json))
+        #expect(restored.id == original.id)
+        #expect(restored.stops == original.stops)
+        #expect(restored.untimedStops == nil)
+    }
+
+    @Test func scheduledSecondsMatchOnlyTheirPublishedMinute() throws {
+        var live = try Fixture.live
+        live["20"]!.times[0].departure?.scheduled = "2026-09-22T08:00:22-04:00"
+        live["20"]!.times[1].arrival?.scheduled = "2026-09-22T11:00:02-04:00"
+        #expect(try Fixture.journey(live: live).issues.isEmpty)
+        live["20"]!.times[1].arrival?.scheduled = "2026-09-22T10:59:59-04:00"
+        #expect(try Fixture.journey(live: live).issues.contains("SCHEDULE_CONFLICT"))
+    }
+
+    @Test func untimedIntermediateStopsNeverInventAnAlarmTime() throws {
+        var tables = try Fixture.tables
+        tables["stops"]!.append(["stop_id": "c", "stop_code": "FLAG", "stop_name": "Arrêt sur demande"])
+        tables["stop_times"]![1]["stop_sequence"] = "3"
+        tables["stop_times"]!.append(["trip_id": "t", "stop_id": "c", "stop_sequence": "2", "arrival_time": "", "departure_time": ""])
+        let trip = try Fixture.journey(tables: tables)
+        #expect(trip.untimedStops?.first?.name == "Arrêt sur demande")
+        #expect(trip.stops.count == 2)
+        #expect(trip.stops.last?.canArm == true)
+    }
+
+    @Test func oceanUsesAgencyClockAndDestinationLocalZoneAcrossMidnight() throws {
+        var tables = try Fixture.tables
+        tables["trips"]![0]["trip_short_name"] = "15"
+        tables["stops"]![0]["stop_timezone"] = "America/Halifax"
+        tables["stops"]![1]["stop_timezone"] = "America/Toronto"
+        tables["stop_times"]![0]["arrival_time"] = "10:30:00"
+        tables["stop_times"]![0]["departure_time"] = "10:30:00"
+        tables["stop_times"]![1]["arrival_time"] = "33:53:00"
+        tables["stop_times"]![1]["departure_time"] = "33:53:00"
+        let trip = try Fixture.journey(tables: tables, live: [:])
+        #expect(trip.departure == ViaTime.instant("2026-09-22T11:30:00-03:00", zone: "America/Halifax"))
+        #expect(trip.stops.last?.arrival == ViaTime.instant("2026-09-23T09:53:00-04:00"))
+        #expect(trip.stops.first?.timeZone == "America/Halifax")
+    }
+
+    @Test func transcontinentalTripsRemainDiscoverableWithTheirOriginalIdentity() throws {
+        var tables = try Fixture.tables
+        tables["trips"]![0]["trip_short_name"] = "1"
+        tables["stops"]![1]["stop_timezone"] = "America/Vancouver"
+        tables["stop_times"]![1]["arrival_time"] = "107:00:00"
+        tables["stop_times"]![1]["departure_time"] = "107:00:00"
+        let schedule = try GTFSSchedule(tables: tables)
+        let original = try Fixture.journey(tables: tables, live: [:])
+        #expect(original.stops.last?.arrival == ViaTime.instant("2026-09-26T08:00:00-07:00"))
+        let ongoing = try schedule.journeysAvailable(on: "2026-09-26", live: [:], receivedAt: nil, now: Fixture.now)
+        #expect(ongoing.contains { $0.id == original.id && $0.serviceDate == Fixture.day })
+        #expect(Set(ongoing.map(\.id)).count == ongoing.count)
+        let finished = try schedule.journeysAvailable(on: "2026-09-27", live: [:], receivedAt: nil, now: Fixture.now)
+        #expect(!finished.contains { $0.id == original.id })
+    }
+
     @Test func missingAndStaleObservationUseLabelledSchedule() throws {
         var live = try Fixture.live; live["20"]!.poll = nil
         #expect(try Fixture.journey(live: live).stops.last?.source == "planned")
@@ -159,6 +283,17 @@ private actor FakeVIA: ViaTransport {
         let feeds = try await [first, second]
         #expect(feeds.allSatisfy { $0.journeys.count == 1 })
         _ = try await client.load(serviceDate: Fixture.day)
+        #expect(await transport.calls == [.schedule, .live])
+    }
+
+    @Test func invalidBrowsingDateDoesNotFailAConcurrentValidDate() async throws {
+        let transport = try FakeVIA(delay: .milliseconds(50))
+        let client = ViaClient(transport: transport, clock: { Fixture.now })
+        let outside = Task { try await client.load(serviceDate: "2027-01-01") }
+        while await transport.calls.isEmpty { await Task.yield() }
+        let valid = try await client.load(serviceDate: Fixture.day)
+        await #expect(throws: (any Error).self) { try await outside.value }
+        #expect(valid.journeys.first?.number == "20")
         #expect(await transport.calls == [.schedule, .live])
     }
 
@@ -233,6 +368,9 @@ private actor FakeVIA: ViaTransport {
         #expect(!feed.journeys.isEmpty)
         #expect(feed.error == nil)
         #expect(feed.receivedAt != nil)
+        for journey in feed.journeys where ["1", "2", "14", "15", "693"].contains(journey.number) {
+            print("Long-distance: \(journey.number) · \(journey.serviceDate) · \(journey.origin) → \(journey.destination) · issues \(journey.issues)")
+        }
         print("Direct VIA smoke: \(feed.journeys.count) journeys; \(feed.journeys.filter { !$0.issues.isEmpty }.count) blocked; no backend.")
     }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct AlarmEditor: View {
     @Bindable var model: JourneyModel
+    @State private var showInformation = false
     @State private var choosing = false
     @State private var confirmImmediate = false
     @FocusState private var editingLead: Bool
@@ -12,10 +13,6 @@ struct AlarmEditor: View {
     var body: some View {
         NavigationStack {
             List {
-                if let session = model.alarm.session,
-                   session.journey.id != "synthetic-demo" || session.active || !model.alarm.observed.isEmpty {
-                    registeredAlarm
-                }
                 Section("Votre trajet") {
                     if let journey = model.selected {
                         Button { choosing = true } label: {
@@ -23,7 +20,11 @@ struct AlarmEditor: View {
                         }
                         Text("\(journey.origin) → \(journey.destination)")
                             .font(.subheadline).foregroundStyle(Color("SecondaryText"))
-                        Text(journey.serviceDate).font(.caption).foregroundStyle(Color("SecondaryText"))
+                        Text(railServiceDate(journey.serviceDate)).font(.caption).foregroundStyle(Color("SecondaryText"))
+                        if let untimed = journey.untimedStops, !untimed.isEmpty {
+                            Text("Certaines gares n’ont pas d’heure publiée et ne permettent pas de programmer un réveil.")
+                                .font(.caption).foregroundStyle(Color("SecondaryText"))
+                        }
                         Picker("Me réveiller avant", selection: $model.stopID) {
                             ForEach(journey.stops.filter { $0.id != journey.stops.first?.id }) {
                                 Text($0.name).tag($0.id)
@@ -37,25 +38,38 @@ struct AlarmEditor: View {
                         }.padding(.vertical, 12)
                         Button { choosing = true } label: {
                             Label("Choisir un train VIA", systemImage: "tram.fill")
-                                .frame(maxWidth: .infinity).padding(.vertical, 8)
-                        }.buttonStyle(.borderedProminent).foregroundStyle(Color("OnAccentColor"))
+                                .frame(maxWidth: .infinity)
+                        }.buttonStyle(WakePrimaryButtonStyle())
                     }
-                }
+                }.listRowBackground(Color("WakeSurface"))
                 if let journey = model.selected {
                     Section {
+                        AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading)) : AnyLayout(HStackLayout(spacing: 8))) {
+                            ForEach([10, 15, 30], id: \.self) { minutes in
+                                Button {
+                                    model.leadMinutes = minutes
+                                    editingLead = false
+                                } label: {
+                                    Text("\(minutes) min")
+                                        .font(.headline)
+                                        .frame(maxWidth: .infinity, minHeight: 52)
+                                        .foregroundStyle(model.leadMinutes == minutes ? Color(red: 0.04, green: 0.07, blue: 0.1) : Color("WakeInk"))
+                                        .background(model.leadMinutes == minutes ? Color("WakeGold") : Color("WakeBackground"),
+                                                    in: RoundedRectangle(cornerRadius: 12))
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityAddTraits(model.leadMinutes == minutes ? .isSelected : [])
+                            }
+                        }.listRowSeparator(.hidden)
                         HStack {
+                            Text("Autre avance")
+                            Spacer()
                             TextField("Minutes", value: $model.leadMinutes, format: .number)
                                 .keyboardType(.numberPad).focused($editingLead)
+                                .multilineTextAlignment(.trailing)
+                                .frame(minWidth: 60)
                                 .accessibilityLabel("Avance en minutes")
-                            Text("minutes").foregroundStyle(Color("SecondaryText"))
-                        }
-                        AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading)) : AnyLayout(HStackLayout())) {
-                            ForEach([10, 15, 30], id: \.self) { minutes in
-                                Button("\(minutes) min") { model.leadMinutes = minutes; editingLead = false }
-                                    .buttonStyle(.bordered)
-                                    .tint(model.leadMinutes == minutes ? Color("AccentColor") : Color("SecondaryText"))
-                                    .fixedSize(horizontal: true, vertical: false)
-                            }
+                            Text("min").foregroundStyle(Color("SecondaryText"))
                         }
                         if let stop = model.stop {
                             LabeledContent(stop.source == "estimated" ? "Arrivée estimée" : "Arrivée prévue") {
@@ -73,8 +87,8 @@ struct AlarmEditor: View {
                             else { Task { await activate() } }
                         } label: {
                             Label(model.alarm.session?.active == true ? "Modifier le réveil" : "Activer le réveil", systemImage: "alarm")
-                                .frame(maxWidth: .infinity).padding(.vertical, 8)
-                        }.buttonStyle(.borderedProminent).foregroundStyle(Color("OnAccentColor"))
+                                .frame(maxWidth: .infinity)
+                        }.buttonStyle(WakePrimaryButtonStyle())
                             .disabled(model.alarm.isBusy || model.stop?.canArm != true || model.desired == nil)
                             .accessibilityIdentifier("activate-alarm")
                         if !journey.issues.isEmpty {
@@ -85,15 +99,22 @@ struct AlarmEditor: View {
                         Text("Avance du réveil")
                     } footer: {
                         Text("L’alarme est enregistrée après activation. Un réveil existant reste actif jusque-là.")
-                    }
+                    }.listRowBackground(Color("WakeSurface"))
                 }
                 if let error = model.alarm.error {
                     Section { Text(error).font(.footnote).foregroundStyle(.red) }
                 }
+                Section {
+                    Button("Confidentialité et sources") { showInformation = true }
+                        .font(.footnote)
+                }.listRowBackground(Color("WakeSurface"))
             }
-            .navigationTitle("Configurer le réveil")
+            .scrollContentBackground(.hidden)
+            .background { CanadianNatureBackground() }
+            .navigationTitle("Votre réveil")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $choosing) { AlarmTrainPicker(model: model) }
+            .sheet(isPresented: $showInformation) { AppInformationView() }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Fermer") { dismiss() }
@@ -119,35 +140,6 @@ struct AlarmEditor: View {
         }
     }
 
-    private var registeredAlarm: some View {
-        Section("Réveil enregistré") {
-            if let session = model.alarm.session {
-                Text("Train \(session.journey.number) · \(session.stop?.name ?? "Gare suivie")")
-                    .font(.headline)
-                Text(model.alarm.status).font(.subheadline).foregroundStyle(Color("SecondaryText"))
-                ForEach(model.alarm.observed, id: \.id) { alarm in
-                    LabeledContent(alarm.ringing ? "Sonnerie en cours" : "Heure enregistrée") {
-                        Text(railTime(alarm.date, zone: session.stop?.timeZone ?? "America/Toronto", includeDate: true)).foregroundStyle(.primary)
-                    }
-                }
-                if model.alarm.observed.count > 1 {
-                    Text("Plusieurs alarmes subsistent. Vérifiez ou arrêtez le réveil.").foregroundStyle(.red)
-                }
-                if let checked = session.verifiedAt {
-                    Text("Vérifiée à \(railTime(checked))").font(.caption).foregroundStyle(Color("SecondaryText"))
-                }
-                if session.active || !model.alarm.observed.isEmpty {
-                    Button("Arrêter le réveil", role: .destructive) {
-                        Task {
-                            await model.stopAlarm()
-                            if model.alarm.error == nil, model.alarm.observed.isEmpty { dismiss() }
-                        }
-                    }
-                        .disabled(model.alarm.isBusy).accessibilityIdentifier("stop-alarm")
-                }
-            }
-        }
-    }
 }
 
 private struct AlarmTrainPicker: View {
@@ -157,7 +149,7 @@ private struct AlarmTrainPicker: View {
         NavigationStack {
             List {
                 Section {
-                    DatePicker("Date de départ", selection: $model.date, displayedComponents: .date)
+                    DatePicker("Date du voyage", selection: $model.date, displayedComponents: .date)
                         .environment(\.timeZone, TimeZone(identifier: "America/Toronto")!)
                         .disabled(model.isLoading)
                     if model.isLoading { ProgressView("Chargement VIA…") }
@@ -172,8 +164,10 @@ private struct AlarmTrainPicker: View {
                     Button("Actualiser") { Task { await model.load() } }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background { CanadianNatureBackground() }
             .navigationTitle("Choisir un train")
-            .searchable(text: $model.number, prompt: "Train ou ville")
+            .searchable(text: $model.number, prompt: "Train ou gare")
             .toolbar { Button("Fermer") { dismiss() } }
             .onChange(of: model.serviceDate) { _, _ in Task { await model.load() } }
             .task { if model.feedDate != model.serviceDate { await model.load() } }

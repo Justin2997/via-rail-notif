@@ -58,6 +58,9 @@ enum ViaTime {
         guard let timeZone = TimeZone(identifier: zone) else {
             throw ViaDataError.invalid("fuseau GTFS")
         }
+        guard clock.range(of: #"^\d{1,3}:\d{2}:\d{2}$"#, options: .regularExpression) != nil else {
+            throw ViaDataError.invalid("heure GTFS")
+        }
         let parts = clock.split(separator: ":").compactMap { Int($0) }
         guard parts.count == 3, (0...240).contains(parts[0]),
               (0..<60).contains(parts[1]), (0..<60).contains(parts[2]) else {
@@ -72,6 +75,16 @@ enum ViaTime {
             throw ViaDataError.invalid("date GTFS")
         }
         return noon.addingTimeInterval(Double((parts[0] - 12) * 3600 + parts[1] * 60 + parts[2]))
+    }
+
+    // VIA's scheduled JSON occasionally includes seconds while GTFS publishes
+    // minute-aligned clocks. Accept that same minute, never another minute.
+    static func matchesSchedule(_ raw: String?, expected: Date, zone: String) -> Bool {
+        guard let actual = instant(raw, zone: zone) else { return false }
+        if expected.timeIntervalSince1970.truncatingRemainder(dividingBy: 60) == 0 {
+            return floor(actual.timeIntervalSince1970 / 60) == floor(expected.timeIntervalSince1970 / 60)
+        }
+        return actual == expected
     }
 
     static func iso(_ value: Date) -> String { ISO8601DateFormatter().string(from: value) }
@@ -140,8 +153,8 @@ struct GTFSSchedule: Sendable {
         var tables: [String: [Row]] = [:]
         var total: UInt64 = 0
         for entry in archive {
+            guard entry.uncompressedSize <= 50_000_000 - total else { throw ViaDataError.tooLarge }
             total += entry.uncompressedSize
-            guard total <= 50_000_000 else { throw ViaDataError.tooLarge }
         }
         for name in ["feed_info", "agency", "routes", "trips", "stops", "stop_times",
                      "calendar", "calendar_dates"] {

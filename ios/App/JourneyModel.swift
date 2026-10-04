@@ -28,6 +28,8 @@ import RailCore
         }
     }
 
+    var activityMessage: String? { activity.message }
+
     var stop: StationStop? { selected?.stops.first { $0.id == stopID } }
     var trackedJourney: Journey? {
         guard let session = alarm.session,
@@ -56,7 +58,8 @@ import RailCore
         let query = number.trimmingCharacters(in: .whitespacesAndNewlines)
         return (feed?.journeys ?? []).filter {
             query.isEmpty || $0.number.contains(query) ||
-                $0.origin.localizedStandardContains(query) || $0.destination.localizedStandardContains(query)
+                $0.stops.contains { $0.name.localizedStandardContains(query) } ||
+                ($0.untimedStops ?? []).contains { $0.name.localizedStandardContains(query) }
         }.sorted { lhs, rhs in
             let leftFuture = (lhs.stops.last?.arrival ?? .distantPast) > .now
             let rightFuture = (rhs.stops.last?.arrival ?? .distantPast) > .now

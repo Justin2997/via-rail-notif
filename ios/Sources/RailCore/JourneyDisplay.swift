@@ -2,6 +2,14 @@ import Foundation
 
 /// Presentation never turns a stale estimate or a timetable into live tracking.
 public enum JourneyDisplay {
+    /// Elapsed time from scheduled departure to the device's registered alarm.
+    /// This is not a measured train position or distance.
+    public static func wakeProgress(departure: Date, alarm: Date, now: Date = .now) -> Double? {
+        let duration = alarm.timeIntervalSince(departure)
+        guard duration > 0 else { return nil }
+        return min(1, max(0, now.timeIntervalSince(departure) / duration))
+    }
+
     public static func hasLiveEstimate(_ journey: Journey, now: Date = .now) -> Bool {
         journey.liveAvailable && journey.issues.isEmpty &&
             WakePolicy.hasRecentObservation(journey, now: now)
