@@ -110,7 +110,7 @@ import RailCore
         } catch is CancellationError {
             return
         } catch {
-            self.error = "Actualisation impossible : \(error.localizedDescription)"
+            self.error = String(localized: "Actualisation impossible : \(String(error.localizedDescription))")
         }
         guard !Task.isCancelled else { return }
         await updateActiveAlarm()
@@ -129,7 +129,7 @@ import RailCore
             if selected?.id == update.id { selected = update }
             await alarm.apply(journey: update)
         } catch is CancellationError { return }
-        catch { self.error = "Suivi du réveil indisponible. L’heure enregistrée est conservée." }
+        catch { self.error = String(localized: "Suivi du réveil indisponible. L’heure enregistrée est conservée.") }
     }
 
     func refreshForeground() async {

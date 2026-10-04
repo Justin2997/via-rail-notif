@@ -6,11 +6,11 @@ import WidgetKit
     private let gold = Color(red: 1, green: 0.8, blue: 0)
 
     private func localTime(_ date: Date, state: TripActivityAttributes.ContentState,
-                           format: String = "HH:mm") -> String {
+                           format: String = "jm") -> String {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "fr_CA")
+        formatter.locale = .current
         formatter.timeZone = TimeZone(identifier: state.timeZone ?? "America/Toronto") ?? .gmt
-        formatter.dateFormat = format
+        formatter.setLocalizedDateFormatFromTemplate(format)
         return formatter.string(from: date)
     }
 
@@ -22,7 +22,7 @@ import WidgetKit
                 EmptyView()
             }
             .tint(gold)
-            .accessibilityLabel("Temps écoulé du départ jusqu’au réveil")
+            .accessibilityLabel(String(localized: "Temps écoulé du départ jusqu’au réveil"))
         }
     }
 
@@ -30,22 +30,22 @@ import WidgetKit
         ActivityConfiguration(for: TripActivityAttributes.self) { context in
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Label("Train \(context.attributes.train)", systemImage: "tram.fill")
+                    Label(String(localized: "Train \(String(context.attributes.train))"), systemImage: "tram.fill")
                     Spacer()
-                    Label("Réveil VIA", systemImage: "alarm.fill")
+                    Label(String(localized: "Réveil VIA"), systemImage: "alarm.fill")
                 }
                 .font(.caption.weight(.semibold)).foregroundStyle(gold)
                 HStack(alignment: .top, spacing: 12) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Réveil").font(.caption).foregroundStyle(.secondary)
+                        Text(String(localized: "Réveil")).font(.caption).foregroundStyle(.secondary)
                         Text(localTime(context.state.alarm, state: context.state))
                             .font(.system(size: 32, weight: .semibold)).monospacedDigit()
-                        Text(localTime(context.state.alarm, state: context.state, format: "d MMM · z"))
+                        Text(localTime(context.state.alarm, state: context.state, format: "dMMMz"))
                             .font(.caption2).foregroundStyle(.secondary)
                     }
                     Spacer(minLength: 0)
                     VStack(alignment: .trailing, spacing: 2) {
-                        Text("Votre gare").font(.caption).foregroundStyle(.secondary)
+                        Text(String(localized: "Votre gare")).font(.caption).foregroundStyle(.secondary)
                         Text(context.state.station).font(.title3.weight(.semibold))
                             .lineLimit(2).multilineTextAlignment(.trailing)
                     }
@@ -53,13 +53,13 @@ import WidgetKit
                 progress(context.state)
                 HStack {
                     if context.isStale || context.state.warning {
-                        Label("Suivi à actualiser · alarme conservée", systemImage: "clock")
+                        Label(String(localized: "Suivi à actualiser · alarme conservée"), systemImage: "clock")
                     } else {
-                        Text("Arrivée \(context.state.estimated ? "estimée" : "prévue") : \(localTime(context.state.arrival, state: context.state))")
+                        Text(String(localized: "Arrivée \(String(context.state.estimated ? String(localized: "estimée") : String(localized: "prévue"))) : \(String(localTime(context.state.arrival, state: context.state)))"))
                         Spacer(minLength: 8)
                         Text(timerInterval: Date.distantPast...context.state.alarm, countsDown: true)
                             .monospacedDigit().multilineTextAlignment(.trailing)
-                            .accessibilityLabel("Temps restant avant le réveil")
+                            .accessibilityLabel(String(localized: "Temps restant avant le réveil"))
                     }
                 }
                 .font(.caption2).foregroundStyle(.secondary)
@@ -81,11 +81,11 @@ import WidgetKit
                         HStack {
                             Text(context.state.station).font(.headline).lineLimit(2)
                             Spacer(minLength: 8)
-                            Text(localTime(context.state.alarm, state: context.state, format: "d MMM · z"))
+                            Text(localTime(context.state.alarm, state: context.state, format: "dMMMz"))
                                 .font(.caption2).foregroundStyle(.secondary)
                         }
                         progress(context.state)
-                        Text(context.isStale || context.state.warning ? "Suivi à actualiser · alarme conservée" : "Temps écoulé jusqu’au réveil")
+                        Text(context.isStale || context.state.warning ? String(localized: "Suivi à actualiser · alarme conservée") : String(localized: "Temps écoulé jusqu’au réveil"))
                             .font(.caption2).foregroundStyle(.secondary)
                     }
                 }

@@ -1,5 +1,7 @@
 name: ReveilVIA
 options:
+  developmentLanguage: en
+  knownRegions: [en, fr]
   bundleIdPrefix: ca.codingpanda
   deploymentTarget:
     iOS: '26.0'

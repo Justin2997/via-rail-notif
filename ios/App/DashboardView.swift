@@ -22,7 +22,7 @@ struct DashboardView: View {
                 .frame(maxWidth: .infinity)
             }
             .background { CanadianNatureBackground() }
-            .navigationTitle("Réveil VIA")
+            .navigationTitle(String(localized: "Réveil VIA"))
             .navigationBarTitleDisplayMode(.inline)
             .refreshable { await model.load() }
         }
@@ -31,25 +31,25 @@ struct DashboardView: View {
     @ViewBuilder private func activeJourney(_ journey: Journey) -> some View {
         if let session = model.alarm.session {
             AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4)) : AnyLayout(HStackLayout(alignment: .firstTextBaseline))) {
-                Text("Train \(journey.number)").font(.headline)
+                Text(String(localized: "Train \(String(journey.number))")).font(.headline)
                 if !typeSize.isAccessibilitySize { Spacer() }
                 Text(railServiceDate(journey.serviceDate))
                     .font(.caption).foregroundStyle(Color("SecondaryText"))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            WakeClock(alarms: model.alarm.observed, station: session.stop?.name ?? "Votre gare",
+            WakeClock(alarms: model.alarm.observed, station: session.stop?.name ?? String(localized: "Votre gare"),
                       zone: session.stop?.timeZone ?? "America/Toronto", leadMinutes: session.leadMinutes)
 
             VStack(spacing: 6) {
-                Label(model.alarm.observed.contains(where: { $0.ringing }) ? "Sonnerie en cours" : model.alarm.status,
+                Label(model.alarm.observed.contains(where: { $0.ringing }) ? String(localized: "Sonnerie en cours") : model.alarm.status,
                       systemImage: model.alarm.observed.contains(where: { $0.ringing }) ? "alarm.waves.left.and.right" : "alarm")
                     .font(.footnote.weight(.medium))
                     .foregroundStyle(Color("WakeInk"))
                     .multilineTextAlignment(.center)
                 if model.alarm.observed.contains(where: { $0.ringing }) {
                     Button { Task { await model.stopAlarm() } } label: {
-                        Label("Je suis réveillé · arrêter", systemImage: "checkmark")
+                        Label(String(localized: "Je suis réveillé · arrêter"), systemImage: "checkmark")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(WakePrimaryButtonStyle(gold: true, compact: true))
@@ -58,7 +58,7 @@ struct DashboardView: View {
                 }
                 Button { model.configure(journey, stopID: session.stopID) } label: {
                     HStack {
-                        Label("Modifier le réveil", systemImage: "slider.horizontal.3")
+                        Label(String(localized: "Modifier le réveil"), systemImage: "slider.horizontal.3")
                         Spacer()
                         Image(systemName: "chevron.right").font(.caption.weight(.semibold))
                     }
@@ -67,7 +67,7 @@ struct DashboardView: View {
                 .accessibilityIdentifier("manage-alarm")
                 if !model.alarm.observed.contains(where: { $0.ringing }),
                    session.active || !model.alarm.observed.isEmpty {
-                    Button("Désactiver le réveil", role: .destructive) {
+                    Button(String(localized: "Désactiver le réveil"), role: .destructive) {
                         Task { await model.stopAlarm() }
                     }
                     .font(.subheadline.weight(.medium))
@@ -84,7 +84,7 @@ struct DashboardView: View {
                 JourneyDashboard(model: model, fallback: journey)
             } label: {
                 HStack {
-                    Label("Gares et position publiée", systemImage: "tram")
+                    Label(String(localized: "Gares et position publiée"), systemImage: "tram")
                     Spacer()
                     Image(systemName: "chevron.right").font(.caption)
                 }.font(.subheadline)
@@ -110,17 +110,17 @@ struct DashboardView: View {
     private var emptyState: some View {
         VStack(spacing: 32) {
             VStack(spacing: 20) {
-                Text("Reposez-vous.\nGardez votre gare en vue.")
+                Text(String(localized: "Reposez-vous.\nGardez votre gare en vue."))
                     .font(.largeTitle.weight(.semibold)).tracking(-0.8)
                     .foregroundStyle(Color("WakeInk"))
-                Text("Choisissez votre train et votre gare.\nProgrammez un réveil avant l’arrivée.")
+                Text(String(localized: "Choisissez votre train et votre gare.\nProgrammez un réveil avant l’arrivée."))
                     .font(.body).foregroundStyle(Color("SecondaryText"))
             }.multilineTextAlignment(.center).padding(.top, 4)
             Button { model.showAlarmEditor = true } label: {
-                Label("Configurer un réveil", systemImage: "plus")
+                Label(String(localized: "Configurer un réveil"), systemImage: "plus")
                     .frame(maxWidth: .infinity)
             }.buttonStyle(WakePrimaryButtonStyle())
-            Text("Votre train apparaîtra ici une fois le réveil activé.")
+            Text(String(localized: "Votre train apparaîtra ici une fois le réveil activé."))
                 .font(.footnote).foregroundStyle(Color("SecondaryText"))
                 .multilineTextAlignment(.center)
         }
@@ -161,11 +161,11 @@ struct ViaCompanionBanner: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 180)
                 .clipped()
-                .accessibilityLabel("Train de la nouvelle flotte VIA Rail Canada")
+                .accessibilityLabel(String(localized: "Train de la nouvelle flotte VIA Rail Canada"))
             VStack(alignment: .leading, spacing: 4) {
                 Text("VIA Rail Canada")
                     .font(.title3.weight(.bold))
-                Text("Votre compagnon de voyage")
+                Text(String(localized: "Votre compagnon de voyage"))
                     .font(.subheadline)
             }
             .foregroundStyle(Color(red: 0.12, green: 0.12, blue: 0.12))
@@ -200,18 +200,18 @@ private struct WakeClock: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            Text(alarms.contains(where: { $0.ringing }) ? "C’est l’heure de vous réveiller" : alarms.count == 1 ? "Réveil programmé" : "État du réveil")
+            Text(alarms.contains(where: { $0.ringing }) ? String(localized: "C’est l’heure de vous réveiller") : alarms.count == 1 ? String(localized: "Réveil programmé") : String(localized: "État du réveil"))
                 .font(.subheadline.weight(.medium)).foregroundStyle(Color("SecondaryText"))
             if alarms.count == 1, let alarm = alarms.first {
                 Text(railTime(alarm.date, zone: zone))
                     .font(.system(size: clockSize, weight: .semibold, design: .rounded))
                     .monospacedDigit().tracking(-3)
                     .minimumScaleFactor(0.5).lineLimit(1)
-                    .accessibilityLabel("Réveil à \(railTime(alarm.date, zone: zone, includeDate: true))")
+                    .accessibilityLabel(String(localized: "Réveil à \(String(railTime(alarm.date, zone: zone, includeDate: true)))"))
                 Text(railTime(alarm.date, zone: zone, includeDate: true))
                     .font(.subheadline).foregroundStyle(Color("SecondaryText"))
             } else {
-                Text(alarms.isEmpty ? "Heure à vérifier" : "Plusieurs alarmes")
+                Text(alarms.isEmpty ? String(localized: "Heure à vérifier") : String(localized: "Plusieurs alarmes"))
                     .font(.title.weight(.semibold))
                 ForEach(alarms, id: \.id) { alarm in
                     Text(railTime(alarm.date, zone: zone, includeDate: true)).font(.headline)
@@ -219,7 +219,7 @@ private struct WakeClock: View {
             }
             Text(station).font(.title2.weight(.semibold))
                 .fixedSize(horizontal: false, vertical: true)
-            Text("Avance choisie : \(leadMinutes) min")
+            Text(String(localized: "Avance choisie : \(String(leadMinutes)) min"))
                 .font(.subheadline).foregroundStyle(Color("SecondaryText"))
         }
         .foregroundStyle(Color("WakeInk"))
@@ -251,29 +251,29 @@ private struct WakeArrivalSummary: View {
                     TrainStatus(journey: journey)
                     if !typeSize.isAccessibilitySize { Spacer() }
                     if let progress {
-                        Text("\(Int(progress * 100)) % du temps écoulé")
+                        Text(String(localized: "\(String(Int(progress * 100))) % du temps écoulé"))
                             .font(.caption).monospacedDigit().foregroundStyle(Color("SecondaryText"))
                     }
                 }
                 if let progress {
                     ProgressView(value: progress)
                         .tint(Color("WakeGold"))
-                        .accessibilityLabel("Temps écoulé du départ au réveil programmé")
-                        .accessibilityValue("\(Int(progress * 100)) pour cent")
+                        .accessibilityLabel(String(localized: "Temps écoulé du départ au réveil programmé"))
+                        .accessibilityValue(String(localized: "\(String(Int(progress * 100))) pour cent"))
                 }
                 if let stop = journey.stops.first(where: { $0.id == stopID }) {
                     AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 16)) : AnyLayout(HStackLayout(alignment: .top, spacing: 20))) {
                         VStack(alignment: .leading, spacing: 3) {
-                            Text("Départ").font(.caption).foregroundStyle(Color("SecondaryText"))
+                            Text(String(localized: "Départ")).font(.caption).foregroundStyle(Color("SecondaryText"))
                             Text(journey.origin).font(.headline)
                             Text(railTime(journey.departure, zone: journey.stops.first?.timeZone ?? "America/Toronto", includeDate: true)).font(.subheadline).monospacedDigit()
                         }.frame(maxWidth: .infinity, alignment: .leading)
                         VStack(alignment: .leading, spacing: 3) {
-                            Text(JourneyDisplay.isEstimated(stop, in: journey, now: context.date) ? "Arrivée estimée" : "Arrivée prévue")
+                            Text(JourneyDisplay.isEstimated(stop, in: journey, now: context.date) ? String(localized: "Arrivée estimée") : String(localized: "Arrivée prévue"))
                                 .font(.caption).foregroundStyle(Color("SecondaryText"))
                             Text(stop.name).font(.headline)
                             let arrival = JourneyDisplay.arrival(stop, in: journey, now: context.date)
-                            Text(arrival > context.date ? arrivalTime(arrival, zone: stop.timeZone) : "Arrivée à confirmer")
+                            Text(arrival > context.date ? arrivalTime(arrival, zone: stop.timeZone) : String(localized: "Arrivée à confirmer"))
                                 .font(.subheadline).monospacedDigit()
                         }.frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -303,13 +303,13 @@ struct JourneyDashboard: View {
                         TimelineView(.periodic(from: .now, by: 1)) { context in
                             let arrival = JourneyDisplay.arrival(last, in: journey, now: context.date)
                             VStack(alignment: .leading, spacing: 6) {
-                                Text("\(JourneyDisplay.isEstimated(last, in: journey, now: context.date) ? "Arrivée estimée" : "Arrivée prévue") à \(last.name)")
+                                Text(String(localized: "\(String(JourneyDisplay.isEstimated(last, in: journey, now: context.date) ? String(localized: "Arrivée estimée") : String(localized: "Arrivée prévue"))) à \(String(last.name))"))
                                     .font(.subheadline).foregroundStyle(Color("SecondaryText"))
                                 if arrival > context.date {
                                     Text(arrival, style: .timer)
                                         .font(.system(.largeTitle, design: .rounded).weight(.medium)).monospacedDigit()
                                 } else {
-                                    Text("Arrivée à confirmer").font(.title3.weight(.medium))
+                                    Text(String(localized: "Arrivée à confirmer")).font(.title3.weight(.medium))
                                 }
                                 Text(railTime(arrival, zone: last.timeZone, includeDate: true))
                                     .font(.subheadline).monospacedDigit()
@@ -318,10 +318,10 @@ struct JourneyDashboard: View {
                     }
                 }.padding(.vertical, 10)
                 NavigationLink { TrainMap(journey: journey) } label: {
-                    Label("Position publiée", systemImage: "map")
+                    Label(String(localized: "Position publiée"), systemImage: "map")
                 }
             }
-            Section("Gares et arrivées") {
+            Section(String(localized: "Gares et arrivées")) {
                 ForEach(journey.stops) { stop in
                     TimelineView(.periodic(from: .now, by: 30)) { context in
                         VStack(alignment: .leading, spacing: 5) {
@@ -332,18 +332,18 @@ struct JourneyDashboard: View {
                                     .monospacedDigit()
                             }
                             Text(JourneyDisplay.isEstimated(stop, in: journey, now: context.date) ?
-                                 "Estimée · horaire prévu \(railTime(stop.plannedArrival, zone: stop.timeZone, includeDate: true))" : "Horaire prévu")
+                                 String(localized: "Estimée · horaire prévu \(String(railTime(stop.plannedArrival, zone: stop.timeZone, includeDate: true)))") : String(localized: "Horaire prévu"))
                                 .font(.caption).foregroundStyle(Color("SecondaryText"))
                         }.padding(.vertical, 4)
                     }
                 }
             }
             if let untimed = journey.untimedStops, !untimed.isEmpty {
-                Section("Gares sans horaire publié") {
+                Section(String(localized: "Gares sans horaire publié")) {
                     ForEach(untimed) { stop in
                         VStack(alignment: .leading, spacing: 4) {
                             Text(stop.name)
-                            Text("Horaire indisponible · réveil indisponible à cette gare")
+                            Text(String(localized: "Horaire indisponible · réveil indisponible à cette gare"))
                                 .font(.caption).foregroundStyle(Color("SecondaryText"))
                         }
                     }
@@ -353,11 +353,11 @@ struct JourneyDashboard: View {
                 Button {
                     model.configure(journey, stopID: model.alarm.session?.stopID)
                 } label: {
-                    Label("Gérer le réveil", systemImage: "alarm")
+                    Label(String(localized: "Gérer le réveil"), systemImage: "alarm")
                         .frame(maxWidth: .infinity).padding(.vertical, 8)
                 }.buttonStyle(WakePrimaryButtonStyle())
                 if !journey.issues.isEmpty {
-                    Text("Les sources ne concordent pas pour cette desserte. L’activation du réveil reste bloquée tant que le conflit persiste.")
+                    Text(String(localized: "Les sources ne concordent pas pour cette desserte. L’activation du réveil reste bloquée tant que le conflit persiste."))
                         .font(.footnote).foregroundStyle(Color("SecondaryText"))
                 }
                 DataReceipt(feed: nil, loading: model.isLoading, receivedAt: journey.receivedAt)
@@ -365,20 +365,20 @@ struct JourneyDashboard: View {
         }
         .scrollContentBackground(.hidden)
         .background(Color("WakeBackground"))
-        .navigationTitle("Train \(journey.number)")
+        .navigationTitle(String(localized: "Train \(String(journey.number))"))
         .navigationBarTitleDisplayMode(.inline)
         .refreshable { await model.load() }
     }
 }
 
-#Preview("Réveil enregistré") {
+#Preview(String(localized: "Réveil enregistré")) {
     WakeClock(alarms: [DeviceAlarm(id: UUID(), date: Date(timeIntervalSince1970: 1791144480))],
               station: "Toronto Union", zone: "America/Toronto", leadMinutes: 20)
         .padding(24).frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("WakeBackground"))
 }
 
-#Preview("État à vérifier") {
+#Preview(String(localized: "État à vérifier")) {
     WakeClock(alarms: [], station: "Toronto Union", zone: "America/Toronto", leadMinutes: 20)
         .padding(24).frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("WakeBackground"))

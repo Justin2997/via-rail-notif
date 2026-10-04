@@ -311,7 +311,7 @@ private actor FakeVIA: ViaTransport {
         #expect(second.journeys.first?.id == first.journeys.first?.id)
         #expect(second.receivedAt == first.receivedAt)
         #expect(second.journeys.first?.stops.last?.source == "planned")
-        #expect(second.error?.contains("sauvegardés") == true)
+        #expect(second.error?.contains(String(localized: "Horaires sauvegardés sur l’iPhone : actualisation indisponible.", bundle: RailLocalization.bundle)) == true)
         await #expect(throws: (any Error).self) { try await offline.load(serviceDate: "2027-01-01") }
     }
 
@@ -336,13 +336,13 @@ private actor FakeVIA: ViaTransport {
         let stale = Fixture.now.addingTimeInterval(121)
         #expect(!JourneyDisplay.isEstimated(stop, in: trip, now: stale))
         #expect(JourneyDisplay.arrival(stop, in: trip, now: stale) == stop.plannedArrival)
-        #expect(JourneyDisplay.status(trip, now: stale) == "Suivi à actualiser")
+        #expect(JourneyDisplay.status(trip, now: stale) == String(localized: "Suivi à actualiser", bundle: RailLocalization.bundle))
         trip.issues = ["SERVICE_CONFLICT"]
         #expect(!JourneyDisplay.hasLiveEstimate(trip, now: Fixture.now))
         #expect(JourneyDisplay.arrival(stop, in: trip, now: Fixture.now) == stop.plannedArrival)
-        #expect(JourneyDisplay.status(trip, now: Fixture.now) == "Desserte à vérifier")
+        #expect(JourneyDisplay.status(trip, now: Fixture.now) == String(localized: "Desserte à vérifier", bundle: RailLocalization.bundle))
         trip.issues = []; trip.liveAvailable = false
-        #expect(JourneyDisplay.status(trip, now: Fixture.now) == "Horaire prévu")
+        #expect(JourneyDisplay.status(trip, now: Fixture.now) == String(localized: "Horaire prévu", bundle: RailLocalization.bundle))
     }
 
     @Test func browsingAnotherDateKeepsActiveJourneyAvailableWithoutExtraTransfers() async throws {

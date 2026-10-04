@@ -13,8 +13,10 @@
 		1C378DAE2760565A8646F60D /* AlarmKitDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C80B7B183F7DBBF7617D42 /* AlarmKitDriver.swift */; };
 		22E94DACCB330DC3990DE662 /* ZIPFoundation-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2E6ADA9BE40E0D8B33187646 /* ZIPFoundation-LICENSE.txt */; };
 		288EFB2C8469337497138BCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE6AA0C3F7C14A3521E05593 /* Assets.xcassets */; };
+		2E610F8FA5A621CE61D7F2F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1DE79D648E03CFA9B3EB32B5 /* InfoPlist.strings */; };
 		3265ABC9F4229B134A955A94 /* TransitViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2CBE06E726063AC65FC8 /* TransitViews.swift */; };
 		3C0C6D649DDA466CCA06EBF2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A739073AFF602C040012B99 /* HomeView.swift */; };
+		58899256EB42187EC7D5D8A1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3985D4FF4DCB4025F3245921 /* Localizable.xcstrings */; };
 		6A7D4647A382184585EA2A68 /* AlarmEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A3F5D6084F404C5618CD1A /* AlarmEditor.swift */; };
 		70A285537ADEC0A50DF9784D /* TripActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3CC123860FE38EA38D3B6 /* TripActivityController.swift */; };
 		768CFEE0C5A1246744A76BBF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677F6714B3204FBE13829A4A /* DashboardView.swift */; };
@@ -24,6 +26,8 @@
 		D70F84F2E05EE0C399E22C8E /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C068C905971745AA398BA7A /* BackgroundRefresh.swift */; };
 		F1F863750E8AD17A362549E4 /* TripActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF279E73A3FBD280ED507572 /* TripActivityAttributes.swift */; };
 		FC3DA70DE13C6BAD9BBB0BF7 /* ReveilVIALiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AB07F1BDA943C1CEBDE42 /* ReveilVIALiveActivity.swift */; };
+		FD1C6884945D8C1F2F5A46B6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E2421457EBDCDB555DAE1797 /* Localizable.xcstrings */; };
+		FE45D8A384F69CA1C52DE0CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAAC62AE58B3CD9EE1E29E28 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,22 +58,28 @@
 		25D702CD4548DF7F28A87545 /* ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ios; path = .; sourceTree = SOURCE_ROOT; };
 		2C1B2CBE06E726063AC65FC8 /* TransitViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitViews.swift; sourceTree = "<group>"; };
 		2E6ADA9BE40E0D8B33187646 /* ZIPFoundation-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ZIPFoundation-LICENSE.txt"; sourceTree = "<group>"; };
+		3985D4FF4DCB4025F3245921 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		43645D57B1B5146F7ADFD661 /* ReveilVIAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReveilVIAApp.swift; sourceTree = "<group>"; };
 		677F6714B3204FBE13829A4A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		69A3F5D6084F404C5618CD1A /* AlarmEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditor.swift; sourceTree = "<group>"; };
 		6A739073AFF602C040012B99 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6AA3CC123860FE38EA38D3B6 /* TripActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActivityController.swift; sourceTree = "<group>"; };
 		7C068C905971745AA398BA7A /* BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefresh.swift; sourceTree = "<group>"; };
+		839D048C10FEEBEA0E26FB51 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		83AAB6ABBBA2E0F9E076A68D /* SupportViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViews.swift; sourceTree = "<group>"; };
 		86C80B7B183F7DBBF7617D42 /* AlarmKitDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmKitDriver.swift; sourceTree = "<group>"; };
 		90D29CD264CD1CE53987D5CE /* ReveilVIALiveActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ReveilVIALiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		93CE7AB0767989E4197BD5FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9C34E381B02066D3568A0C32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AF279E73A3FBD280ED507572 /* TripActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActivityAttributes.swift; sourceTree = "<group>"; };
 		B06AB07F1BDA943C1CEBDE42 /* ReveilVIALiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReveilVIALiveActivity.swift; sourceTree = "<group>"; };
 		C00E849A22F831E1AA845A39 /* JourneyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyModel.swift; sourceTree = "<group>"; };
 		C6650DB3EA46277ACF5AEBE5 /* ReveilVIA.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ReveilVIA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4275510E7AB540DBE9F07BA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E04C4931B3574338A70D938C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E2421457EBDCDB555DAE1797 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		EE6AA0C3F7C14A3521E05593 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FECBAAA8FA5200C91A58B10E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +134,9 @@
 			isa = PBXGroup;
 			children = (
 				E04C4931B3574338A70D938C /* Info.plist */,
+				E2421457EBDCDB555DAE1797 /* Localizable.xcstrings */,
 				B06AB07F1BDA943C1CEBDE42 /* ReveilVIALiveActivity.swift */,
+				AAAC62AE58B3CD9EE1E29E28 /* InfoPlist.strings */,
 			);
 			path = LiveActivity;
 			sourceTree = "<group>";
@@ -140,11 +152,13 @@
 				6A739073AFF602C040012B99 /* HomeView.swift */,
 				9C34E381B02066D3568A0C32 /* Info.plist */,
 				C00E849A22F831E1AA845A39 /* JourneyModel.swift */,
+				3985D4FF4DCB4025F3245921 /* Localizable.xcstrings */,
 				43645D57B1B5146F7ADFD661 /* ReveilVIAApp.swift */,
 				83AAB6ABBBA2E0F9E076A68D /* SupportViews.swift */,
 				2C1B2CBE06E726063AC65FC8 /* TransitViews.swift */,
 				6AA3CC123860FE38EA38D3B6 /* TripActivityController.swift */,
 				2E6ADA9BE40E0D8B33187646 /* ZIPFoundation-LICENSE.txt */,
+				1DE79D648E03CFA9B3EB32B5 /* InfoPlist.strings */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -157,6 +171,7 @@
 			buildConfigurationList = DC190A77BCDD1413D050E972 /* Build configuration list for PBXNativeTarget "ReveilVIALiveActivity" */;
 			buildPhases = (
 				62F8C9DAABEC6746F02B470E /* Sources */,
+				73440A632013F24EE4DE005B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -208,6 +223,7 @@
 			knownRegions = (
 				Base,
 				en,
+				fr,
 			);
 			mainGroup = 6FC902CC6E38486377326513;
 			minimizedProjectReferenceProxies = 1;
@@ -226,11 +242,22 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		73440A632013F24EE4DE005B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE45D8A384F69CA1C52DE0CD /* InfoPlist.strings in Resources */,
+				FD1C6884945D8C1F2F5A46B6 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F335161334D9BB8C935D54AE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				288EFB2C8469337497138BCF /* Assets.xcassets in Resources */,
+				2E610F8FA5A621CE61D7F2F7 /* InfoPlist.strings in Resources */,
+				58899256EB42187EC7D5D8A1 /* Localizable.xcstrings in Resources */,
 				22E94DACCB330DC3990DE662 /* ZIPFoundation-LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +301,27 @@
 			targetProxy = 878008FFC7C64DD53322B367 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1DE79D648E03CFA9B3EB32B5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FECBAAA8FA5200C91A58B10E /* en */,
+				D4275510E7AB540DBE9F07BA /* fr */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AAAC62AE58B3CD9EE1E29E28 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93CE7AB0767989E4197BD5FF /* en */,
+				839D048C10FEEBEA0E26FB51 /* fr */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		036B7FEB0EBE1DA9EC3B2BEE /* Debug */ = {

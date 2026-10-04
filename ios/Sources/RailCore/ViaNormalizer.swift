@@ -74,7 +74,7 @@ extension GTFSSchedule {
             if minimumHour > 0, let hour = rows.last?["arrival_time"]?.split(separator: ":").first.flatMap({ Int($0) }), hour < minimumHour { continue }
             guard let route = routes[try trip.required("route_id")],
                   let agency = agencies[try route.required("agency_id")] else {
-                throw ViaDataError.invalid("agence ou route GTFS")
+                throw ViaDataError.invalid(String(localized: "agence ou route GTFS", bundle: .module))
             }
             let zone = try agency.required("agency_timezone")
             let stations = rows.map { self.stations[$0["stop_id"]!]! }
@@ -128,7 +128,7 @@ extension GTFSSchedule {
                 let current = liveByCode[codes[index]]
                 let stationZone = station["stop_timezone"].flatMap { $0.isEmpty ? nil : $0 } ?? zone
                 guard TimeZone(identifier: stationZone) != nil else {
-                    throw ViaDataError.invalid("fuseau de gare")
+                    throw ViaDataError.invalid(String(localized: "fuseau de gare", bundle: .module))
                 }
                 // Offset validation uses the station's published GTFS zone;
                 // upstream metadata cannot redefine where this station is.

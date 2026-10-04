@@ -27,8 +27,8 @@ public enum JourneyDisplay {
     }
 
     public static func status(_ journey: Journey, now: Date = .now) -> String {
-        if !journey.issues.isEmpty { return "Desserte à vérifier" }
-        if hasLiveEstimate(journey, now: now) { return "Suivi récent" }
-        return journey.liveAvailable ? "Suivi à actualiser" : "Horaire prévu"
+        if !journey.issues.isEmpty { return String(localized: "Desserte à vérifier", bundle: .module) }
+        if hasLiveEstimate(journey, now: now) { return String(localized: "Suivi récent", bundle: .module) }
+        return journey.liveAvailable ? String(localized: "Suivi à actualiser", bundle: .module) : String(localized: "Horaire prévu", bundle: .module)
     }
 }
