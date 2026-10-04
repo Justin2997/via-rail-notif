@@ -151,17 +151,17 @@ struct CanadianNatureBackground: View {
     }
 }
 
-/// Bundled VIA photography remains available while the passenger is offline.
+/// The generated landscape is bundled for offline use.
 struct ViaCompanionBanner: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Image("ViaTrain")
+            Image("CanadianNature")
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: .infinity)
                 .frame(height: 180)
                 .clipped()
-                .accessibilityLabel(String(localized: "Train de la nouvelle flotte VIA Rail Canada"))
+                .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 4) {
                 Text("VIA Rail Canada")
                     .font(.title3.weight(.bold))

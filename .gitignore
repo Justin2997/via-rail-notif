@@ -8,3 +8,16 @@ __pycache__/
 DerivedData/
 *.xcuserstate
 xcuserdata/
+
+# Local credentials, signing and distribution artifacts
+.env.*
+!.env.example
+*.p12
+*.p8
+*.mobileprovision
+*.provisionprofile
+*.xcarchive/
+*.ipa
+ios/ExportOptions-Local.plist
+.vscode/
+.swiftpm/

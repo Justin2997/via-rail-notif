@@ -2,17 +2,13 @@
 
 Le jaune des actions et des bandeaux est #FFCC00, selon le guide technique VIA Rail Canada (2023). Les surfaces utilisent des neutres chauds, avec un mode sombre anthracite.
 
-Photo intégrée : nouvelle flotte VIA, publiée par VIA Rail Canada. Elle est incluse dans le catalogue d’images pour rester disponible hors connexion.
+Le bandeau utilise l’illustration générée `CanadianNature`, disponible hors connexion. La photographie de la flotte VIA précédemment intégrée a été retirée avant publication : ses droits de redistribution n’étaient pas établis. Elle reste présente dans l’historique Git; aucune licence sur cette photo n’est accordée par ce projet.
 
-- Source de la photo : https://corpo.viarail.ca/en/news/2021/new-fleet
-- Fichier : https://corpo.viarail.ca/sites/default/files/articles/VIARail-New-Fleet.jpg
-- Guide : https://corpo.viarail.ca/sites/default/files/media/brand-book/VIARail_Technical%20Brand%20Guidelines_2023.pdf
-
-Le bandeau identifie le produit comme un compagnon de voyage. Aucun statut d’application officielle ni licence de redistribution n’est revendiqué.
+Les noms VIA Rail et les marques associées appartiennent à leurs titulaires. L’application est indépendante et ne revendique aucune affiliation officielle. La licence du code n’accorde aucun droit sur ces marques ou sur les données VIA.
 
 Le formulaire ne contient plus la section « Réveil enregistré ». L’heure, l’état actuel et la désactivation restent sur le dashboard.
 
-Le bandeau photo est réservé à l’accueil sans réveil actif. Il est masqué pendant le suivi d’un réveil et absent du formulaire de configuration.
+Le bandeau illustré est réservé à l’accueil sans réveil actif. Il est masqué pendant le suivi d’un réveil et absent du formulaire de configuration.
 
 ## Fond canadien
 

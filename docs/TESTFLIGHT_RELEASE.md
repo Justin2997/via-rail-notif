@@ -31,6 +31,8 @@ xcodebuild -exportArchive \
   -allowProvisioningUpdates
 ```
 
+Le fichier partagé ne contient pas d’équipe Apple personnelle. Sélectionner votre équipe dans Xcode pour l’app et l’extension; au besoin copier les options dans `ios/ExportOptions-Local.plist` (ignoré par Git) et y renseigner votre `teamID`.
+
 Cette commande exporte localement; elle ne téléverse pas automatiquement le build. Xcode Organizer permet ensuite de valider et distribuer vers App Store Connect avec le compte connecté.
 
 Référence Apple : https://developer.apple.com/help/app-store-connect/test-a-beta-version/testflight-overview/
@@ -49,7 +51,7 @@ Aucun compte, clé ni serveur à configurer. Internet est nécessaire au premier
 ## Avant ouverture aux testeurs
 
 1. Renseigner les contacts de revue et d’assistance dans App Store Connect, sans inventer d’adresse. Publier la politique de confidentialité à une URL accessible : texte préparé dans `PRIVACY.md` et déjà accessible dans l’app.
-2. Confirmer les droits de redistribution de la photographie VIA intégrée et les conditions du suivi JSON. L’attribution seule n’accorde pas ces droits. Le fond de nature est une illustration générée. L’identité visuelle ne revendique aucun statut officiel.
+2. Confirmer les conditions d’utilisation du suivi JSON. La photographie VIA a été retirée des sources actuelles; le bandeau et le fond utilisent une illustration générée. L’identité visuelle ne revendique aucun statut officiel.
 3. Vérifier une vraie sonnerie sur iPhone : mode silencieux, Sommeil, écran verrouillé, absence de réseau et redémarrage; relever séparément l’heure programmée et l’heure entendue. Vérifier une adaptation sur de nouvelles estimations. Aucun succès de simulation ou de pilote fictif ne remplace cette preuve.
 4. Lancer d’abord une bêta interne, puis ouvrir aux testeurs externes après les validations et le traitement Apple. Ne pas annoncer une adaptation permanente en arrière-plan.
 
