@@ -25,4 +25,4 @@ Include the app/Xcode/iOS version, reproducible steps, expected and actual behav
 
 ## Scope and assets
 
-Preserve conservative alarm behavior: stale or conflicting data must not silently replace a verified alarm. Do not claim continuous background updates. Do not add external imagery, datasets or dependencies without documenting their provenance and redistribution terms. The code license does not license VIA data or trademarks. See [asset provenance](docs/VIA_DESIGN_ASSETS.md) and [the README](README.md).
+Preserve conservative alarm behavior: stale or conflicting data must not silently replace a verified alarm. Do not claim continuous background updates. Do not add external imagery, datasets or dependencies without documenting their provenance and redistribution terms. The code license does not license VIA data or trademarks. See [the README](README.md).

@@ -42,7 +42,7 @@ Aucun nouveau build signé, archive de distribution ou déploiement sur l’iPho
 
 Il reste à vérifier la sonnerie réelle, les changements d’heure d’alarme sur appareil, l’écran verrouillé, silencieux/Sommeil, les interruptions de réseau et le redémarrage. Les actualisations iOS en arrière-plan demeurent opportunistes. L’audit ne démontre pas une adaptation permanente téléphone verrouillé.
 
-Les démarches de distribution restent séparées : acceptation du contrat Apple signalé par l’export précédent, profils App Store Connect, contacts/URL de confidentialité, droits de la photographie VIA et conditions du suivi JSON. Voir `TESTFLIGHT_RELEASE.md`. Aucun nouveau problème bloquant dans le code relu ne reste identifié après les corrections; cela ne garantit pas l’absence de tout défaut ni l’approbation Apple.
+Les démarches de distribution restent séparées : acceptation du contrat Apple signalé par l’export précédent, profils App Store Connect, contacts/URL de confidentialité, droits de la photographie VIA et conditions du suivi JSON. Aucun nouveau problème bloquant dans le code relu ne reste identifié après les corrections; cela ne garantit pas l’absence de tout défaut ni l’approbation Apple.
 
 
 ## Installation après audit — 4 octobre 2026

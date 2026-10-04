@@ -2,7 +2,7 @@
 
 Application compagnon indépendante : app SwiftUI iOS 26, alarme locale AlarmKit, choix du train/de la gare/de l’avance, connexion directe aux sources VIA et rapprochement des horaires GTFS avec le suivi VIA sur l’iPhone. « Réveil VIA » est l’unique écran principal : l’heure réellement enregistrée est mise en avant, avec la gare cible et un résumé du trajet. La configuration du réveil s’ouvre dans une fenêtre depuis le dashboard. Les données VIA réelles sont chargées dès l’ouverture; aucun trajet de démonstration n’est proposé.
 
-L’app ajuste une alarme vers une heure antérieure ou postérieure lorsqu’une nouvelle estimation exploitable est chargée dans l’app. **Le dashboard est actualisé environ chaque minute lorsque l’app est au premier plan, même sans réveil actif. En veille, les actualisations sont opportunistes et décidées par iOS.** Une Activité en direct affiche le réveil enregistré et signale le suivi périmé. Aucune sonnerie sur iPhone physique ni précision de trente secondes n’est démontrée. La distribution visée est une première bêta TestFlight; voir [la préparation de distribution](docs/TESTFLIGHT_RELEASE.md).
+L’app ajuste une alarme vers une heure antérieure ou postérieure lorsqu’une nouvelle estimation exploitable est chargée dans l’app. **Le dashboard est actualisé environ chaque minute lorsque l’app est au premier plan, même sans réveil actif. En veille, les actualisations sont opportunistes et décidées par iOS.** Une Activité en direct affiche le réveil enregistré et signale le suivi périmé. Aucune sonnerie sur iPhone physique ni précision de trente secondes n’est démontrée. La distribution visée est une première bêta TestFlight.
 
 ## Développement et contribution
 
@@ -10,7 +10,7 @@ Code Swift/SwiftUI, iOS 26 minimum, Xcode 26.1+ et Swift 6.2. Pour commencer, cl
 
 Les contributions en français ou en anglais sont bienvenues : [guide de contribution](CONTRIBUTING.md) et [signalement de sécurité](SECURITY.md). Les documents de validation antérieurs sont des relevés historiques; ils ne constituent pas une preuve de validation de chaque nouvelle version.
 
-La licence du code reste à choisir par le propriétaire avant de présenter le projet comme librement réutilisable. ZIPFoundation possède sa propre licence MIT. Les données et marques VIA ne sont pas couvertes par une éventuelle licence du code; les illustrations intégrées et leurs origines sont décrites dans [les sources visuelles](docs/VIA_DESIGN_ASSETS.md).
+La licence du code reste à choisir par le propriétaire avant de présenter le projet comme librement réutilisable. ZIPFoundation possède sa propre licence MIT. Les données et marques VIA ne sont pas couvertes par une éventuelle licence du code; les paysages intégrés sont des illustrations générées.
 
 ## Application autonome
 
