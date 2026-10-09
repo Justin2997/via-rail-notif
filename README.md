@@ -40,7 +40,7 @@ swift test --package-path ios
 
 ## Contributing
 
-Issues and pull requests in English or French are welcome. See the [contribution guide](CONTRIBUTING.md), [security policy](SECURITY.md) and [privacy policy (French)](docs/PRIVACY.md).
+Issues and pull requests in English or French are welcome. See the [contribution guide](CONTRIBUTING.md), [security policy](SECURITY.md) and [privacy policy (English and French)](docs/PRIVACY.md).
 
 ## Status and credits
 

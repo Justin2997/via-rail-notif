@@ -12,7 +12,6 @@ import SwiftUI
     var body: some Scene {
         WindowGroup {
             HomeView(model: model)
-                .environment(\.locale, Locale(identifier: "fr_CA"))
                 .tint(Color("AccentColor"))
                 .task {
                     await model.reconcile()

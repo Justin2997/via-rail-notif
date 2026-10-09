@@ -1552,6 +1552,70 @@
           }
         }
       }
+    },
+    "Assistance": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Support"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assistance"
+          }
+        }
+      }
+    },
+    "Signaler un problème": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report an issue"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signaler un problème"
+          }
+        }
+      }
+    },
+    "N’incluez pas de renseignements personnels dans les signalements publics. Vous pouvez aussi envoyer vos commentaires depuis TestFlight.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do not include personal information in public reports. You can also send feedback through TestFlight."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "N’incluez pas de renseignements personnels dans les signalements publics. Vous pouvez aussi envoyer vos commentaires depuis TestFlight."
+          }
+        }
+      }
+    },
+    "Politique de confidentialité": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy policy"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Politique de confidentialité"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

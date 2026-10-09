@@ -43,3 +43,9 @@ jobs:
         xcodebuild -project ios/ReveilVIA.xcodeproj -scheme ReveilVIA
         -destination 'generic/platform=iOS Simulator'
         CODE_SIGNING_ALLOWED=NO build
+    - name: Validate Release archive for distribution
+      run: >-
+        xcodebuild -project ios/ReveilVIA.xcodeproj -scheme ReveilVIA
+        -configuration Release -destination 'generic/platform=iOS'
+        -archivePath "$RUNNER_TEMP/ReveilVIA.xcarchive"
+        CODE_SIGNING_ALLOWED=NO archive

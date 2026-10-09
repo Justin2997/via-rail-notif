@@ -47,10 +47,15 @@ struct AppInformationView: View {
                     Text(String(localized: "Le trajet choisi, la gare, l’avance, l’état du réveil et les derniers horaires sont conservés sur votre iPhone. L’app ne demande ni compte ni accès à votre position et n’intègre aucun outil publicitaire ou d’analyse d’utilisation."))
                     Text(String(localized: "L’app télécharge les horaires et le suivi directement auprès de VIA Rail en HTTPS. Comme pour toute connexion Internet, les serveurs destinataires peuvent recevoir votre adresse IP. Votre configuration de réveil n’est pas envoyée à VIA Rail ni à un serveur de l’application."))
                     Text(String(localized: "La désactivation arrête le réveil mais conserve votre dernière configuration. La suppression de l’app supprime son stockage local. Arrêtez votre réveil avant de supprimer l’app."))
+                    Link(String(localized: "Politique de confidentialité"), destination: URL(string: "https://github.com/Justin2997/via-rail-notif/blob/main/docs/PRIVACY.md")!)
                 }
                 Section(String(localized: "Sources")) {
                     Text(String(localized: "Horaires et suivi : VIA Rail Canada inc. Les horaires GTFS sont publiés sous Licence du gouvernement ouvert – Canada. Les images de paysage sont des illustrations générées."))
                     Link(String(localized: "Licence des horaires"), destination: URL(string: String(localized: "https://open.canada.ca/fr/licence-du-gouvernement-ouvert-canada"))!)
+                }
+                Section(String(localized: "Assistance")) {
+                    Link(String(localized: "Signaler un problème"), destination: URL(string: "https://github.com/Justin2997/via-rail-notif/issues")!)
+                    Text(String(localized: "N’incluez pas de renseignements personnels dans les signalements publics. Vous pouvez aussi envoyer vos commentaires depuis TestFlight."))
                 }
             }
             .navigationTitle(String(localized: "Informations"))
