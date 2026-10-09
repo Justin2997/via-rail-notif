@@ -21,6 +21,7 @@
 		70A285537ADEC0A50DF9784D /* TripActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3CC123860FE38EA38D3B6 /* TripActivityController.swift */; };
 		768CFEE0C5A1246744A76BBF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677F6714B3204FBE13829A4A /* DashboardView.swift */; };
 		A0ACF3072DD2BBF7637D5DD9 /* TripActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF279E73A3FBD280ED507572 /* TripActivityAttributes.swift */; };
+		BB02FDBFF59D1CD572784B91 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4CEDCE69EDB69EAF7E9C199B /* PrivacyInfo.xcprivacy */; };
 		BCB7B344D7EDE402675CA282 /* ReveilVIALiveActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 90D29CD264CD1CE53987D5CE /* ReveilVIALiveActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BFC03A2CE24F28FD559DCA35 /* RailCore in Frameworks */ = {isa = PBXBuildFile; productRef = 43B9395BC10E7390A014F7F5 /* RailCore */; };
 		D70F84F2E05EE0C399E22C8E /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C068C905971745AA398BA7A /* BackgroundRefresh.swift */; };
@@ -60,6 +61,7 @@
 		2E6ADA9BE40E0D8B33187646 /* ZIPFoundation-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ZIPFoundation-LICENSE.txt"; sourceTree = "<group>"; };
 		3985D4FF4DCB4025F3245921 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		43645D57B1B5146F7ADFD661 /* ReveilVIAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReveilVIAApp.swift; sourceTree = "<group>"; };
+		4CEDCE69EDB69EAF7E9C199B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		677F6714B3204FBE13829A4A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		69A3F5D6084F404C5618CD1A /* AlarmEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditor.swift; sourceTree = "<group>"; };
 		6A739073AFF602C040012B99 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				9C34E381B02066D3568A0C32 /* Info.plist */,
 				C00E849A22F831E1AA845A39 /* JourneyModel.swift */,
 				3985D4FF4DCB4025F3245921 /* Localizable.xcstrings */,
+				4CEDCE69EDB69EAF7E9C199B /* PrivacyInfo.xcprivacy */,
 				43645D57B1B5146F7ADFD661 /* ReveilVIAApp.swift */,
 				83AAB6ABBBA2E0F9E076A68D /* SupportViews.swift */,
 				2C1B2CBE06E726063AC65FC8 /* TransitViews.swift */,
@@ -258,6 +261,7 @@
 				288EFB2C8469337497138BCF /* Assets.xcassets in Resources */,
 				2E610F8FA5A621CE61D7F2F7 /* InfoPlist.strings in Resources */,
 				58899256EB42187EC7D5D8A1 /* Localizable.xcstrings in Resources */,
+				BB02FDBFF59D1CD572784B91 /* PrivacyInfo.xcprivacy in Resources */,
 				22E94DACCB330DC3990DE662 /* ZIPFoundation-LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,7 +400,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -500,7 +504,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
