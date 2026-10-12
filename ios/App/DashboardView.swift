@@ -140,11 +140,13 @@ struct CanadianNatureBackground: View {
                     .resizable().scaledToFill()
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .clipped()
+                // Minimum veil opacity keeps SecondaryText readable even over the
+                // lightest/darkest image pixels (sRGB lower bounds: 5.13/4.71:1).
                 LinearGradient(
                     stops: [
-                        .init(color: Color("WakeBackground").opacity(colorScheme == .dark ? 0.45 : 0.55), location: 0),
-                        .init(color: Color("WakeBackground").opacity(colorScheme == .dark ? 0.65 : 0.75), location: 0.42),
-                        .init(color: Color("WakeBackground").opacity(colorScheme == .dark ? 0.32 : 0.45), location: 1)
+                        .init(color: Color("WakeBackground").opacity(colorScheme == .dark ? 0.85 : 0.90), location: 0),
+                        .init(color: Color("WakeBackground").opacity(colorScheme == .dark ? 0.90 : 0.94), location: 0.42),
+                        .init(color: Color("WakeBackground").opacity(colorScheme == .dark ? 0.82 : 0.88), location: 1)
                     ], startPoint: .top, endPoint: .bottom)
             }
         }
@@ -265,6 +267,7 @@ private struct WakeArrivalSummary: View {
 struct JourneyDashboard: View {
     @Bindable var model: JourneyModel
     let fallback: Journey
+    @Environment(\.dynamicTypeSize) private var typeSize
     private var journey: Journey { model.journey(id: fallback.id) ?? fallback }
 
     var body: some View {
@@ -301,11 +304,14 @@ struct JourneyDashboard: View {
                 ForEach(journey.stops) { stop in
                     TimelineView(.periodic(from: .now, by: 30)) { context in
                         VStack(alignment: .leading, spacing: 5) {
-                            HStack(alignment: .firstTextBaseline) {
+                            AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4)) : AnyLayout(HStackLayout(alignment: .firstTextBaseline))) {
                                 Text(stop.name).font(.headline)
-                                Spacer()
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .layoutPriority(1)
+                                if !typeSize.isAccessibilitySize { Spacer() }
                                 Text(railTime(JourneyDisplay.arrival(stop, in: journey, now: context.date), zone: stop.timeZone, includeDate: true))
                                     .monospacedDigit()
+                                    .fixedSize(horizontal: false, vertical: true)
                             }
                             Text(JourneyDisplay.isEstimated(stop, in: journey, now: context.date) ?
                                  String(localized: "Estimée · horaire prévu \(String(railTime(stop.plannedArrival, zone: stop.timeZone, includeDate: true)))") : String(localized: "Horaire prévu"))

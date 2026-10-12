@@ -6,9 +6,17 @@ struct AlarmEditor: View {
     @State private var showInformation = false
     @State private var choosing = false
     @State private var confirmImmediate = false
+    @State private var leadText: String
     @FocusState private var editingLead: Bool
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.dismiss) private var dismiss
+
+    init(model: JourneyModel) {
+        self.model = model
+        _leadText = State(initialValue: String(model.leadMinutes))
+    }
+
+    private var invalidLead: Bool { !(1...1440).contains(model.leadMinutes) }
 
     var body: some View {
         NavigationStack {
@@ -47,6 +55,7 @@ struct AlarmEditor: View {
                         AnyLayout(typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading)) : AnyLayout(HStackLayout(spacing: 8))) {
                             ForEach([10, 15, 30], id: \.self) { minutes in
                                 Button {
+                                    leadText = String(minutes)
                                     model.leadMinutes = minutes
                                     editingLead = false
                                 } label: {
@@ -64,35 +73,58 @@ struct AlarmEditor: View {
                         HStack {
                             Text(String(localized: "Autre avance"))
                             Spacer()
-                            TextField(String(localized: "Minutes"), value: $model.leadMinutes, format: .number)
+                            TextField(String(localized: "Minutes"), text: Binding(
+                                get: { leadText },
+                                set: {
+                                    leadText = $0
+                                    model.leadMinutes = Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0
+                                }))
                                 .keyboardType(.numberPad).focused($editingLead)
                                 .multilineTextAlignment(.trailing)
                                 .frame(minWidth: 60)
                                 .accessibilityLabel(String(localized: "Avance en minutes"))
+                                .accessibilityHint(invalidLead ? WakeError.invalidLead.localizedDescription : "")
+                                .accessibilityIdentifier("alarm-lead-minutes")
                             Text("min").foregroundStyle(Color("SecondaryText"))
                         }
-                        if let stop = model.stop {
-                            LabeledContent(stop.source == "estimated" ? String(localized: "Arrivée estimée") : String(localized: "Arrivée prévue")) {
-                                Text(railTime(stop.arrival, zone: stop.timeZone, includeDate: true)).foregroundStyle(.primary)
+                        if invalidLead {
+                            Label(WakeError.invalidLead.localizedDescription, systemImage: "exclamationmark.triangle")
+                                .font(.footnote).foregroundStyle(Color("StatusWarning"))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .accessibilityIdentifier("alarm-lead-error")
+                        }
+                        TimelineView(.periodic(from: .now, by: 30)) { context in
+                            if let stop = model.stop {
+                                let arrival = JourneyDisplay.arrival(stop, in: journey, now: context.date)
+                                LabeledContent(JourneyDisplay.isEstimated(stop, in: journey, now: context.date) ? String(localized: "Arrivée estimée") : String(localized: "Arrivée prévue")) {
+                                    Text(railTime(arrival, zone: stop.timeZone, includeDate: true)).foregroundStyle(.primary)
+                                }
+                                if let desired = try? WakePolicy.desiredDate(arrival: arrival, leadMinutes: model.leadMinutes) {
+                                    LabeledContent(String(localized: "Réveil souhaité")) {
+                                        Text(railTime(desired, zone: stop.timeZone, includeDate: true)).foregroundStyle(.primary)
+                                    }.fontWeight(.semibold)
+                                }
+                                if journey.issues.isEmpty, stop.source == "estimated",
+                                   !JourneyDisplay.isEstimated(stop, in: journey, now: context.date) {
+                                    Text(String(localized: "L’estimation n’est plus exploitable. L’heure prévue est affichée ; actualisez avant d’activer le réveil."))
+                                        .font(.footnote).foregroundStyle(Color("StatusWarning"))
+                                }
                             }
+                            Button {
+                                editingLead = false
+                                if let desired = model.desired, desired <= .now { confirmImmediate = true }
+                                else { Task { await activate() } }
+                            } label: {
+                                Label(model.alarm.session?.active == true ? String(localized: "Modifier le réveil") : String(localized: "Activer le réveil"), systemImage: "alarm")
+                                    .frame(maxWidth: .infinity)
+                            }.buttonStyle(WakePrimaryButtonStyle())
+                                .disabled(model.alarm.isBusy || model.stop?.canArm != true || model.desired == nil ||
+                                          !journey.issues.isEmpty ||
+                                          (model.stop?.source == "estimated" && !WakePolicy.hasRecentObservation(journey, now: context.date)))
+                                .accessibilityIdentifier("activate-alarm")
                         }
-                        if let desired = model.desired {
-                            LabeledContent(String(localized: "Réveil souhaité")) {
-                                Text(railTime(desired, zone: model.stop?.timeZone ?? "America/Toronto", includeDate: true)).foregroundStyle(.primary)
-                            }.fontWeight(.semibold)
-                        }
-                        Button {
-                            editingLead = false
-                            if let desired = model.desired, desired <= .now { confirmImmediate = true }
-                            else { Task { await activate() } }
-                        } label: {
-                            Label(model.alarm.session?.active == true ? String(localized: "Modifier le réveil") : String(localized: "Activer le réveil"), systemImage: "alarm")
-                                .frame(maxWidth: .infinity)
-                        }.buttonStyle(WakePrimaryButtonStyle())
-                            .disabled(model.alarm.isBusy || model.stop?.canArm != true || model.desired == nil)
-                            .accessibilityIdentifier("activate-alarm")
                         if !journey.issues.isEmpty {
-                            Label(String(localized: "Desserte à vérifier : réveil indisponible."), systemImage: "exclamationmark.triangle")
+                            Label(String(localized: "Les sources ne concordent pas pour cette desserte. L’activation du réveil reste bloquée tant que le conflit persiste."), systemImage: "exclamationmark.triangle")
                                 .font(.footnote).foregroundStyle(Color("StatusWarning"))
                         }
                     } header: {
@@ -110,6 +142,11 @@ struct AlarmEditor: View {
                 }.listRowBackground(Color("WakeSurface"))
             }
             .scrollContentBackground(.hidden)
+            .onChange(of: model.leadMinutes) { _, minutes in
+                if (Int(leadText.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0) != minutes {
+                    leadText = String(minutes)
+                }
+            }
             .background { CanadianNatureBackground() }
             .navigationTitle(String(localized: "Votre réveil"))
             .navigationBarTitleDisplayMode(.inline)

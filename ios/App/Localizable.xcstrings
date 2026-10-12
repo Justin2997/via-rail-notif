@@ -1,6 +1,22 @@
 {
   "sourceLanguage": "fr",
   "strings": {
+    "L’estimation n’est plus exploitable. L’heure prévue est affichée ; actualisez avant d’activer le réveil.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’estimation n’est plus exploitable. L’heure prévue est affichée ; actualisez avant d’activer le réveil."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The estimate is no longer usable. The scheduled time is shown; refresh before activating the alarm."
+          }
+        }
+      }
+    },
     "RailNap": {
       "localizations": {
         "fr": {
