@@ -1,4 +1,4 @@
-# VIA Wake · Réveil VIA
+# RailNap
 
 Rest easy. Keep your stop in sight.
 
@@ -7,7 +7,7 @@ An iPhone companion that helps you set an alarm before your VIA Rail Canada stop
 ## Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/home.png" width="250" alt="VIA Wake home screen">
+  <img src="docs/screenshots/home.png" width="250" alt="RailNap home screen">
   <img src="docs/screenshots/trains.png" width="250" alt="Available VIA trains and routes">
   <img src="docs/screenshots/alarm.png" width="250" alt="Destination station and alarm lead time settings">
 </p>

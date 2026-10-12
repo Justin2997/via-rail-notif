@@ -1,8 +1,8 @@
-# Confidentialité — Réveil VIA
+# Confidentialité — RailNap
 
 Dernière mise à jour : 8 octobre 2026. / Last updated: October 8, 2026.
 
-Réveil VIA est une application compagnon indépendante pour les voyageurs de VIA Rail Canada, sans affiliation officielle avec VIA Rail.
+RailNap est une application compagnon indépendante pour les voyageurs de VIA Rail Canada, sans affiliation officielle avec VIA Rail.
 
 ## Données sur votre appareil
 
@@ -28,9 +28,9 @@ Apple traite les informations liées aux installations, aux diagnostics et aux c
 
 ---
 
-# Privacy — VIA Wake
+# Privacy — RailNap
 
-VIA Wake is an independent companion for VIA Rail Canada passengers. It is not affiliated with VIA Rail.
+RailNap is an independent companion for VIA Rail Canada passengers. It is not affiliated with VIA Rail.
 
 ## Data on your device
 

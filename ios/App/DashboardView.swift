@@ -7,24 +7,26 @@ struct DashboardView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: model.trackedJourney == nil ? 24 : 10) {
-                    if let journey = model.trackedJourney {
-                        activeJourney(journey)
-                    } else {
-                        ViaCompanionBanner()
-                        emptyState
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(spacing: model.trackedJourney == nil ? 24 : 10) {
+                        if let journey = model.trackedJourney {
+                            activeJourney(journey)
+                        } else {
+                            emptyState
+                        }
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .frame(maxWidth: 560)
+                    .frame(maxWidth: .infinity,
+                           minHeight: model.trackedJourney == nil ? geometry.size.height : nil)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
-                .frame(maxWidth: 560)
-                .frame(maxWidth: .infinity)
+                .background { CanadianNatureBackground() }
+                .refreshable { await model.load() }
             }
-            .background { CanadianNatureBackground() }
-            .navigationTitle(String(localized: "Réveil VIA"))
+            .navigationTitle(String(localized: "RailNap"))
             .navigationBarTitleDisplayMode(.inline)
-            .refreshable { await model.load() }
         }
     }
 
@@ -148,32 +150,6 @@ struct CanadianNatureBackground: View {
         }
         .ignoresSafeArea()
         .accessibilityHidden(true)
-    }
-}
-
-/// The generated landscape is bundled for offline use.
-struct ViaCompanionBanner: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Image("CanadianNature")
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity)
-                .frame(height: 180)
-                .clipped()
-                .accessibilityHidden(true)
-            VStack(alignment: .leading, spacing: 4) {
-                Text("VIA Rail Canada")
-                    .font(.title3.weight(.bold))
-                Text(String(localized: "Votre compagnon de voyage"))
-                    .font(.subheadline)
-            }
-            .foregroundStyle(Color(red: 0.12, green: 0.12, blue: 0.12))
-            .padding(.horizontal, 20).padding(.vertical, 16)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color("WakeGold"))
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

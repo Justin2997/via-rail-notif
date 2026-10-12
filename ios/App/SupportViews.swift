@@ -35,7 +35,7 @@ struct AppInformationView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(String(localized: "Réveil VIA")) {
+                Section(String(localized: "RailNap")) {
                     Text(String(localized: "Un compagnon de voyage indépendant pour les voyageurs de VIA Rail Canada. Cette application n’est pas une application officielle de VIA Rail."))
                     Text(String(localized: "Version \(String(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—")) (\(String(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—")))"))
                 }

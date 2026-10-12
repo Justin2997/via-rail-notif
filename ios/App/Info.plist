@@ -25,7 +25,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSAlarmKitUsageDescription</key>
-	<string>Réveil VIA programme une alarme avant l’arrivée du train à la gare choisie.</string>
+	<string>RailNap programme une alarme avant l’arrivée du train à la gare choisie.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>UIBackgroundModes</key>

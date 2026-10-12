@@ -1,18 +1,18 @@
 {
   "sourceLanguage": "fr",
   "strings": {
-    "Réveil VIA": {
+    "RailNap": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Réveil VIA"
+            "value": "RailNap"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "VIA Wake"
+            "value": "RailNap"
           }
         }
       }
@@ -753,18 +753,18 @@
         }
       }
     },
-    "Activités en direct désactivées : activez-les dans les réglages de Réveil VIA pour afficher le réveil sur l’écran verrouillé.": {
+    "Activités en direct désactivées : activez-les dans les réglages de RailNap pour afficher le réveil sur l’écran verrouillé.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Activités en direct désactivées : activez-les dans les réglages de Réveil VIA pour afficher le réveil sur l’écran verrouillé."
+            "value": "Activités en direct désactivées : activez-les dans les réglages de RailNap pour afficher le réveil sur l’écran verrouillé."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Live Activities are disabled. Enable them in VIA Wake’s settings to show the alarm on your Lock Screen."
+            "value": "Live Activities are disabled. Enable them in RailNap’s settings to show the alarm on your Lock Screen."
           }
         }
       }

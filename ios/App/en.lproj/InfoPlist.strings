@@ -1,2 +1,2 @@
-"CFBundleDisplayName" = "VIA Wake";
-"NSAlarmKitUsageDescription" = "VIA Wake schedules an alarm before your train arrives at your selected station.";
+"CFBundleDisplayName" = "RailNap";
+"NSAlarmKitUsageDescription" = "RailNap schedules an alarm before your train arrives at your selected station.";
