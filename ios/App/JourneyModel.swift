@@ -69,8 +69,8 @@ import RailCore
     }
 
     func select(_ journey: Journey) {
+        stopID = journey.selectedStopID(previous: selected, stopID: stopID)
         selected = journey
-        stopID = journey.stops.last?.id ?? ""
     }
 
     func configure(_ journey: Journey, stopID: String? = nil) {

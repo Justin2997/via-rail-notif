@@ -60,9 +60,15 @@ import Testing
         #expect(formatter.string(from: result) == "2026-11-01T05:45:00Z")
     }
 
-    @Test func positiveLeadRequired() {
-        #expect(throws: WakeError.self) {
-            try WakePolicy.desiredDate(arrival: now, leadMinutes: 0)
+    @Test func leadRangeIncludesOnlyOneThrough1440Minutes() throws {
+        for invalid in [-1, 0, 1441] {
+            #expect(throws: WakeError.self) {
+                try WakePolicy.desiredDate(arrival: now, leadMinutes: invalid)
+            }
+        }
+        for valid in [1, 15, 1440] {
+            #expect(try WakePolicy.desiredDate(arrival: now, leadMinutes: valid) ==
+                    now.addingTimeInterval(-Double(valid) * 60))
         }
     }
 

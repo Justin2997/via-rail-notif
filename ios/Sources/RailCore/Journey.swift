@@ -25,6 +25,15 @@ public struct Journey: Codable, Identifiable, Equatable, Sendable {
     public var issues: [String]
     public var liveAvailable: Bool
 
+    /// Keep a station only when reselecting the same service and it is still selectable.
+    public func selectedStopID(previous: Journey?, stopID: String) -> String {
+        if previous?.id == id,
+           stops.dropFirst().contains(where: { $0.id == stopID }) {
+            return stopID
+        }
+        return stops.last?.id ?? ""
+    }
+
     public static func demo(now: Date = .now) -> Journey {
         Journey(id: "synthetic-demo", number: "DÉMO", serviceDate: "Simulation",
                 origin: "Montréal", destination: "Québec", departure: now,
