@@ -3,7 +3,7 @@ import SwiftUI
 import WidgetKit
 
 @main struct ReveilVIALiveActivity: Widget {
-    private let gold = Color(red: 1, green: 0.8, blue: 0)
+    private let gold = Color(red: 0.384, green: 0.839, blue: 0.769)
 
     private func localTime(_ date: Date, state: TripActivityAttributes.ContentState,
                            format: String = "jm") -> String {
@@ -32,7 +32,7 @@ import WidgetKit
                 HStack {
                     Label(String(localized: "Train \(String(context.attributes.train))"), systemImage: "tram.fill")
                     Spacer()
-                    Label(String(localized: "Réveil VIA"), systemImage: "alarm.fill")
+                    Label(String(localized: "RailNap"), systemImage: "alarm.fill")
                 }
                 .font(.caption.weight(.semibold)).foregroundStyle(gold)
                 HStack(alignment: .top, spacing: 12) {

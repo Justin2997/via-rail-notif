@@ -33,18 +33,18 @@
         }
       }
     },
-    "Réveil VIA": {
+    "RailNap": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Réveil VIA"
+            "value": "RailNap"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "VIA Wake"
+            "value": "RailNap"
           }
         }
       }

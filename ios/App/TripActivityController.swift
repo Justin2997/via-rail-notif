@@ -59,7 +59,7 @@ import UIKit
                 record("updated", detail: existing.id)
             } else if UIApplication.shared.applicationState == .active {
                 guard ActivityAuthorizationInfo().areActivitiesEnabled else {
-                    message = String(localized: "Activités en direct désactivées : activez-les dans les réglages de Réveil VIA pour afficher le réveil sur l’écran verrouillé.")
+                    message = String(localized: "Activités en direct désactivées : activez-les dans les réglages de RailNap pour afficher le réveil sur l’écran verrouillé.")
                     record("disabled")
                     continue
                 }
